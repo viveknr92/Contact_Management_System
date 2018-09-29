@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function (){
+            
+            addForm('#addAddress', '#address', '#cloneAddresshere', '#deleteAddress');
+            addForm('#addPhone', '#phone', '#clonePhonehere', '#deletePhone');
+            addForm('#addEvent', '#event', '#cloneEventhere', '#deleteEvent');
+            });
+            function addForm(AddbuttonID, formID, cloneHereID, DeletebuttonID){
+                $(AddbuttonID).click(function(){
+                    $(formID).clone().appendTo(cloneHereID).show();
+                    
+                    //$(DeletebuttonID).off();
+                    $(document).on('click', DeletebuttonID, function () {
+                        $(this).parents(formID).remove();
+                    });
+                });
+            }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron-fluid">
+            <h1 style="text-align: center">Contact Manager</h1>
+            <form class="navbar-form" action="/action_page.php">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search" name="search">
+                </div>
+                <div style="text-align: center">
+                    <button type="submit" class="btn btn-default">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <hr>
+    <div class="container-fluid">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Create
+            New Contact</button>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">New Contact</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <input type="text" class="form-control" id="fname" placeholder="First Name">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <input type="text" class="form-control" id="mname" placeholder="Middle Name">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <input type="text" class="form-control" id="lname" placeholder="Last name">
+                            </div>
+                        </div>
+
+                        <div id="cloneAddresshere">
+                            <!-- Address -->
+                        </div>
+                        <div class="form-row ">
+                            <div class="form-group col-md-12">
+                                <button type="button" class="btn btn-success" id="addAddress">+ Add Address</button>
+                            </div>
+                        </div>
+                        <div id="address" class="form-group" style="display:none">
+                            <div class="form-row">
+                                <div class="form-group col-md-3">
+                                    <select id="addressType" class="form-control">
+                                        <option selected>home</option>
+                                        <option>work</option>
+                                        <option>Custom</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-8">
+                                    <input type="text" class="form-control" id="inputAddress" placeholder="Address">
+                                </div>
+                                <div class="form-group col-md-1">
+                                    <button type="button" class="btn btn-danger" id="deleteAddress">X</button>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-5">
+                                    <input type="text" class="form-control" placeholder="City" id="inputCity">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <input type="text" class="form-control" placeholder="State" id="inputState">
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <input type="text" class="form-control" placeholder="Zip" id="inputZip">
+                                </div>
+                            </div>
+                        </div><!-- Address -->
+
+                        <div id="clonePhonehere">
+                            <!-- Phone -->
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-2">
+                                <button type="button" class="btn btn-success" id="addPhone">+ Add Phone</button>
+                            </div>
+                        </div>
+                        <div id="phone" class="form-group" style="display:none">
+                            <div class="form-row">
+                                <div class="form-group col-md-3">
+                                    <select id="PhoneType" class="form-control">
+                                        <option selected>home</option>
+                                        <option>work</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <input type="text" class="form-control" id="inputPhone" placeholder="Phone">
+                                </div>
+                                <div class="form-group col-md-1">
+                                    <button type="button" class="btn btn-danger" id="deletePhone">X</button>
+                                </div>
+                            </div>
+                        </div> <!-- Phone -->
+
+                        <div id="cloneEventhere">
+                            <!-- Event -->
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-2">
+                                <button type="button" class="btn btn-success" id="addEvent">+ Add Event</button>
+                            </div>
+                        </div>
+                        <div id="event" class="form-group" style="display:none">
+                            <div class="form-row">
+                                <div class="form-group col-md-3">
+                                    <select id="EventType" class="form-control">
+                                        <option selected>home</option>
+                                        <option>work</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <input type="text" class="form-control" id="inputEvent" placeholder="MM-DD-YYYY">
+                                </div>
+                                <div class="form-group col-md-1">
+                                    <button type="button" class="btn btn-danger" id="deleteEvent">X</button>
+                                </div>
+                            </div>
+                        </div> <!-- Event -->
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Create Contact</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
