@@ -78,42 +78,52 @@ def insert_date(contact_id, date_type, date):
 
 # reset_table()
 
-# with open('Contacts.csv') as csvfile:
-#     readCSV = list(csv.reader(csvfile, delimiter=','))
-#     for row in readCSV[1:]:
-#         contact_id = insert_contact(row[1], row[2], row[3])
+with open('Contacts.csv') as csvfile:
+    readCSV = list(csv.reader(csvfile, delimiter=','))
+    for row in readCSV[1:]:
+        contact_id = insert_contact(row[1], row[2], row[3])
         
-#         print('Inserting contact ', contact_id)
+        print('Inserting contact ', contact_id)
 
-#     for row in readCSV[1:]:
-#         id = insert_address(row[0], "home", row[6], row[7], row[8], row[9])
-#         id = insert_address(row[0], "work", row[11], row[12], row[13], row[14])
-
-#         if(row[4] != ""): # home
-#           phone = row[4].split("-", 1)
-#           id = insert_phone(row[0], "home", phone[0], phone[1])
-#         else:
-#           id = insert_phone(row[0], "home", "", "")
+    for row in readCSV[1:]:
+        if(row[9] != ""): # home address
+          id = insert_address(row[0], "home", row[6], row[7], row[8], row[9])
+        else:
+          print ("no home address")
         
-#         if(row[5] != ""): # cell
-#           cell = row[5].split("-", 1)
-#           id = insert_phone(row[0], "cell", cell[0], cell[1])
-#         else:
-#           id = insert_phone(row[0], "cell", "", "")
+        if(row[14] != ""): # work address
+          id = insert_address(row[0], "work", row[11], row[12], row[13], row[14])
+        else:
+          print ("no work address")
 
-#         if(row[10] != ""): # work
-#           work = row[10].split("-", 1)
-#           id = insert_phone(row[0], "work", work[0], work[1])
-#         else:
-#           id = insert_phone(row[0], "work", "", "")
+        if(row[4] != ""): # home
+          phone = row[4].split("-", 1)
+          id = insert_phone(row[0], "home", phone[0], phone[1])
+        else:
+          print ("no home phone")
+          # id = insert_phone(row[0], "home", "", "")
         
-#         if(row[15] != ""): # date
-#           date = row[15].split("/")
-#           d = datetime.date(int(date[2]), int(date[0]), int(date[1]))
-#           id = insert_date(row[0], "birth_date", d.strftime('%Y-%m-%d %H:%M:%S'))
-#         else:
-#           # id = insert_date(row[0], "", "")
-#           print ("no birthday")
+        if(row[5] != ""): # cell
+          cell = row[5].split("-", 1)
+          id = insert_phone(row[0], "cell", cell[0], cell[1])
+        else:
+          print ("no cell")
+          # id = insert_phone(row[0], "cell", "", "")
+
+        if(row[10] != ""): # work
+          work = row[10].split("-", 1)
+          id = insert_phone(row[0], "work", work[0], work[1])
+        else:
+          print ("no work phone")
+          # id = insert_phone(row[0], "work", "", "")
+        
+        if(row[15] != ""): # date
+          date = row[15].split("/")
+          d = datetime.date(int(date[2]), int(date[0]), int(date[1]))
+          id = insert_date(row[0], "birth_date", d.strftime('%Y-%m-%d %H:%M:%S'))
+        else:
+          # id = insert_date(row[0], "", "")
+          print ("no birthday")
 
 
     

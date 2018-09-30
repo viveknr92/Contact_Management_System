@@ -23,8 +23,8 @@
         echo "<td scope='row'>" . $row['fname'] . "</td>";
         echo "<td scope='row'>" . $row['mname'] . "</td>";
         echo "<td scope='row'>" . $row['lname'] . "</td>";
-        echo "<td scope='row'><button type='button' class='btn btn-primary' id='editbutton'>Edit</button></td>";
-        echo "<td scope='row'><button type='button' class='btn btn-danger' id='deletebutton'>Delete</button></td>";
+        echo "<td scope='row'><button type='button' class='btn btn-primary' id='editbutton'>Edit</button>
+        <button type='button' class='btn btn-danger' id='deletebutton'>Delete</button></td>";
         echo "</tr>";
     }
     mysqli_close($con);
