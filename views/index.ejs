@@ -33,14 +33,15 @@
             <tbody id="searchQuery">
             <% if (result != null && result.length > 0) {%>
             <% console.log("view : " + result[0].fname); %>
+            <% var editvar = null;  %>
             <% result.forEach((r, index) => { %>
                     <tr>
-                        <% console.log("view 2: " + r); %>
+                        <% console.log("view 2: " + JSON.stringify(r)); %>
                         <td><%= r.contact_id %></td>
                         <td><%= r.fname %></td>
                         <td><%= r.mname %></td>
                         <td><%= r.lname %></td>
-                        <td><a href="/edit/<%= r.contact_id %>" class="btn btn-sm btn-success" id="editButton" data-toggle="modal" data-target="#editContactModal" data-whatever="@mdo">Edit</a>
+                        <td><button href="/edit/<%= r.contact_id %>" value="<%= JSON.stringify(r) %>" class="btn btn-sm btn-success" id="editButton" data-toggle="modal" data-target="#editContactModal" data-whatever="@mdo">Edit</button>
                             <a href="/delete/<%= r.contact_id %>" class="btn btn-sm btn-danger" id="deleteButton">Delete</a></td>
                     </tr>
                     <% }) %>

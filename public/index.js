@@ -6,6 +6,10 @@ $(document).ready(function (){
     $('#deleteButton').click(function(){
         confirm("Confirm Delete?");
     });
+
+    $('#editButton').click(function(){
+        console.log("Edit clicked" + $(this).val());
+    });
 });
 
 function addForm(AddbuttonID, formID, cloneHereID, DeletebuttonID){
