@@ -51,7 +51,42 @@ app.get('/', function(req, res){
 
 app.post('/add', function(req, res){
     console.log("POST request add : " + req.body.fname);
-    console.log("POST request add : " + req.body.fname);
+    console.log("POST request add : " + req.body.address[0]);
+    console.log("POST request add : " + req.body.address[1]);
+    console.log("POST request len : " + req.body.address.length);
+    var sql = "INSERT INTO contact (fname, mname, lname) VALUES ?";
+    var values = [
+        [req.body.fname, req.body.mname, req.body.lname]
+    ];
+    console.log(values);
+    if (req.body.fname != "" || req.body.mname != "" || req.body.lname != ""){
+        db.query(sql, [values], function (err, result) {
+            if (err) throw err;
+            console.log("Number of records inserted: " + result.affectedRows + result.insertId);
+            console.log(result);
+        });
+    }
+    else{
+        console.log("did not insert");
+    }
+    res.redirect('/');
+});
+
+app.get("/delete/:id", function(req, res){
+    console.log("delete route : " + id);
+    var id = req.params.id;
+    var sql = "DELETE FROM contact WHERE contact_id='" + id + "'";
+    db.query(sql, function (err, result) {
+        if (err) throw err;
+        console.log("Number of records deleted: " + result.affectedRows);
+        console.log(result);
+    });
+    res.redirect('/');
+});
+
+app.get("/edit/:id", function(req, res){
+    var id = req.params.id;
+    console.log("edit route : " + id);
     res.redirect('/');
 });
 // app.get('/edit/:id', editPlayerPage);
