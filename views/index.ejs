@@ -8,17 +8,16 @@
                 <input type="text" class="form-control" placeholder="Search" name="search" id="searchValue" required>
             </div>
             <div>
-                <button type="submit" class="btn btn-default" id="searchbutton">Search</button>
+                <button type="button" class="btn btn-default" id="searchbutton">Search</button>
             </div>
         </form>
     </div>
     <hr>
     <div class="row">
-        <form action="/add">
-            <button type="submit" class="btn btn-primary">Create New Contact</button>
-        </form>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Create New Contact</button>
     </div>
     <br/>
+    <% include add_contact %>
     <div class="row">
         <table class="table table-bordered">
             <thead class="thead-light">

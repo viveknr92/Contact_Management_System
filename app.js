@@ -49,25 +49,14 @@ app.get('/', function(req, res){
     }
 });
 
-app.get('/add', function(req, res){ // go to create page
-    res.render("add_contact");
-});
 app.post('/add', function(req, res){
-    console.log("add" + req.body);
+    console.log("POST request add : " + req.body.fname);
+    console.log("POST request add : " + req.body.fname);
     res.redirect('/');
 });
 // app.get('/edit/:id', editPlayerPage);
 // app.get('/delete/:id', deletePlayer);
 // app.post('/edit/:id', editPlayer);
-
-// app.get("/", function(req, res){
-//     res.send("home");
-// });
-
-// app.get("/next", function(req, res){
-//     var thing = req.params.thing;
-//     res.render("next");
-// });
 
 // app.post("/add", function(req, res){
 //     console.log(req.body);
@@ -76,10 +65,6 @@ app.post('/add', function(req, res){
 // app.get("/:thing", function(req, res){
 //     var thing = req.params.thing;
 //     res.render("home", {thingVar:thing});
-// });
-
-// app.get("/index", function(req, res){
-//     res.render("index");
 // });
 
 
