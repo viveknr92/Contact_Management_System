@@ -8,8 +8,8 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <form>
+                <form action="/add" method="POST">
+                    <div class="modal-body">
                         <div class="form-row">
                             <div class="form-group col-md-4">
                                 <input type="text" class="form-control" id="fname" name="fname" placeholder="First Name">
@@ -109,11 +109,12 @@
                             </div>
                         </div> <!-- Event -->
 
-                    </form>
-                </div>
+                    
+                </div> <!-- modal body -->
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Create Contact</button>
                 </div>
+                </form>
             </div>
         </div>
     </div>
