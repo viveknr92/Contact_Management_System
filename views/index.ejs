@@ -2,12 +2,12 @@
 
 <div class="container">
     <div class="jumbotron-fluid">
-        <h1 style="text-align: center">Contact Manager</h1>
+        <h1>Contact Manager</h1>
         <form action="/" method="GET">
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="Search" name="search" id="searchValue">
+                <input type="text" class="form-control" placeholder="Search" name="search" id="searchValue" required>
             </div>
-            <div style="text-align: center">
+            <div>
                 <button type="submit" class="btn btn-default" id="searchbutton">Search</button>
             </div>
         </form>
@@ -40,14 +40,14 @@
                         <td><%= r.fname %></td>
                         <td><%= r.mname %></td>
                         <td><%= r.lname %></td>
-                        <td><a href="" target="_blank" rel="noopener" class="btn btn-sm btn-success">Edit</a>
+                        <td><a href="" class="btn btn-sm btn-success">Edit</a>
                             <a href="" class="btn btn-sm btn-danger">Delete</a></td>
                     </tr>
                     <% }) %>
             </tbody>
         </table>
         <% } else { %>
-            <p>No players found</p>
+            <p>No Contacts found</p>
         <% } %>
     </div>
 </div>
