@@ -84,11 +84,11 @@ app.get("/delete/:id", function(req, res){
     res.redirect('/');
 });
 
-app.get("/edit/:id", function(req, res){
-    var id = req.params.id;
-    console.log("edit route : " + id);
-    res.redirect('/');
-});
+// app.get("/edit/:id", function(req, res){
+//     var id = req.params.id;
+//     console.log("edit route : " + id);
+//     res.redirect('/');
+// });
 // app.get('/edit/:id', editPlayerPage);
 // app.get('/delete/:id', deletePlayer);
 // app.post('/edit/:id', editPlayer);
