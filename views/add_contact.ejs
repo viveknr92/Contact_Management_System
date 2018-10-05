@@ -33,17 +33,17 @@
                         <div id="address" class="form-group" style="display:none">
                             <div class="form-row">
                                 <div class="form-group col-md-3">
-                                    <select id="addressType" name="addressType[]" class="form-control">
-                                        <option selected>home</option>
-                                        <option>work</option>
-                                        <option>Custom</option>
-                                    </select>
+                                    <input list="addressType" name="address_type[]" class="form-control">
+                                    <datalist id="addressType">
+                                        <option value="home">
+                                        <option value="work">
+                                    </datalist>
                                 </div>
                                 <div class="form-group col-md-8">
-                                    <input type="text" class="form-control" id="inputAddress" name="address[]" placeholder="Address">
+                                    <input type="text" class="form-control" id="inputAddress" name="address_line[]" placeholder="Address">
                                 </div>
                                 <div class="form-group col-md-1">
-                                    <button type="button" class="btn btn-danger" id="deleteAddress">X</button>
+                                    <button type="button" class="btn btn-danger" id="deleteAddress"> X </button>
                                 </div>
                             </div>
                             <div class="form-row">
@@ -70,16 +70,17 @@
                         <div id="phone" class="form-group" style="display:none">
                             <div class="form-row">
                                 <div class="form-group col-md-3">
-                                    <select id="PhoneType" name="phoneType[]" class="form-control">
-                                        <option selected>home</option>
-                                        <option>work</option>
-                                    </select>
+                                    <input list="PhoneType" name="phoneType[]" class="form-control">
+                                    <datalist id="PhoneType">
+                                        <option value="home">
+                                        <option value="work">
+                                    </datalist>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <input type="text" class="form-control" id="inputPhone" name="phone[]" placeholder="Phone">
                                 </div>
                                 <div class="form-group col-md-1">
-                                    <button type="button" class="btn btn-danger" id="deletePhone">X</button>
+                                    <button type="button" class="btn btn-danger" id="deletePhone"> X </button>
                                 </div>
                             </div>
                         </div> <!-- Phone -->
@@ -95,16 +96,17 @@
                         <div id="event" class="form-group" style="display:none">
                             <div class="form-row">
                                 <div class="form-group col-md-3">
-                                    <select id="EventType" name="eventType" class="form-control">
-                                        <option selected>home</option>
-                                        <option>work</option>
-                                    </select>
+                                    <input list="EventType" name="eventType[]" class="form-control">
+                                    <datalist id="EventType">
+                                        <option value="home">
+                                        <option value="work">   
+                                    </datalist>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <input type="text" class="form-control" id="inputEvent" placeholder="MM-DD-YYYY" name="event[]">
                                 </div>
                                 <div class="form-group col-md-1">
-                                    <button type="button" class="btn btn-danger" id="deleteEvent">X</button>
+                                    <button type="button" class="btn btn-danger" id="deleteEvent"> X </button>
                                 </div>
                             </div>
                         </div> <!-- Event -->

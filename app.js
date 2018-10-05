@@ -38,37 +38,58 @@ app.get('/', function(req, res){
     }
     else{
         console.log("search : " + req.query.search);
-        var name = "SELECT * FROM contact where fname='" + req.query.search + "'";
+        //let q = req.query.search;
+        let q = "'%" + req.query.search + "%'";
+        let name = "SELECT DISTINCT contact.* " +
+        "FROM contact " + 
+        "LEFT JOIN address ON contact.contact_id = address.contact_id " + 
+        "WHERE address_line LIKE" + q + "OR city LIKE " + q + " OR state LIKE " + q + 
+        " OR fname LIKE " + q + " OR mname LIKE " + q + " OR lname LIKE " + q ;
+        
         db.query(name, function (err, result) {
             if (err) throw err;
             console.log(result);
-            //console.log("result[0].fname : " + result[0].fname);
-            //console.log(result[0]);
             res.render("index", {result:result});
+        });
+        let count = "SELECT DISTINCT COUNT(contact.contact_id) " +
+        "FROM contact " + 
+        "LEFT JOIN address ON contact.contact_id = address.contact_id " + 
+        "WHERE address_line LIKE" + q + "OR city LIKE " + q + " OR state LIKE " + q + 
+        " OR fname LIKE " + q + " OR mname LIKE " + q + " OR lname LIKE " + q ;
+
+        db.query(count, function (err, count) {
+            if (err) throw err;
+            console.log(count);
+            res.render("index", {count:count});
         });
     }
 });
 
 app.post('/add', function(req, res){
     console.log("POST request add : " + req.body.fname);
-    console.log("POST request add : " + req.body.address[0]);
-    console.log("POST request add : " + req.body.address[1]);
-    console.log("POST request len : " + req.body.address.length);
+    console.log("POST request add : " + req.body.address_line[0]);
+    console.log("POST request add : " + req.body.address_line[1]);
+    console.log("POST request len : " + req.body.address_line.length);
     var sql = "INSERT INTO contact (fname, mname, lname) VALUES ?";
     var values = [
         [req.body.fname, req.body.mname, req.body.lname]
     ];
     console.log(values);
-    if (req.body.fname != "" || req.body.mname != "" || req.body.lname != ""){
+    
+    if(req.body.fname == "" || req.body.mname == "" || req.body.lname == ""){
+        console.log("did not insert");
+    }
+    else{
         db.query(sql, [values], function (err, result) {
             if (err) throw err;
             console.log("Number of records inserted: " + result.affectedRows + result.insertId);
             console.log(result);
         });
     }
-    else{
-        console.log("did not insert");
-    }
+    // var sql2 = "INSERT INTO address (contact_id, address_type, address_line, city, state, zip) VALUES ?";
+    // var values = [
+    //     [req.body.fname, req.body.mname, req.body.lname]
+    // ];
     res.redirect('/');
 });
 
@@ -77,7 +98,10 @@ app.get("/delete/:id", function(req, res){
     var id = req.params.id;
     var sql = "DELETE FROM contact WHERE contact_id='" + id + "'";
     db.query(sql, function (err, result) {
-        if (err) throw err;
+        if (err) {
+            console.log(err);
+            res.send(err);
+        }
         console.log("Number of records deleted: " + result.affectedRows);
         console.log(result);
     });

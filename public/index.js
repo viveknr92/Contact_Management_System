@@ -2,10 +2,6 @@ $(document).ready(function (){
     addForm('#addAddress', '#address', '#cloneAddresshere', '#deleteAddress');
     addForm('#addPhone', '#phone', '#clonePhonehere', '#deletePhone');
     addForm('#addEvent', '#event', '#cloneEventhere', '#deleteEvent');
-    
-    $('#deleteButton').click(function(){
-        confirm("Confirm Delete?");
-    });
 
     $('#editButton').click(function(){
         console.log("Edit clicked" + $(this).val());
