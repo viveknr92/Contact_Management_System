@@ -19,13 +19,13 @@ var db = mysql.createConnection({
   });
 
 db.connect(function(err) {
-    if (err) throw err;
+    if (err) console.log(err);
     console.log("Connected to DB!");
 });
 global.db = db;
 
 // db.query("SELECT * FROM contact where fname='Cindra'", function (err, result) {
-//     if (err) throw err;
+//     if (err) console.log(err);
 //     console.log(result);
 // });
 
@@ -40,27 +40,23 @@ app.get('/', function(req, res){
         console.log("search : " + req.query.search);
         //let q = req.query.search;
         let q = "'%" + req.query.search + "%'";
-        let name = "SELECT DISTINCT contact.* " +
+        var search = "SELECT DISTINCT contact.* " +
         "FROM contact " + 
         "LEFT JOIN address ON contact.contact_id = address.contact_id " + 
         "WHERE address_line LIKE" + q + "OR city LIKE " + q + " OR state LIKE " + q + 
         " OR fname LIKE " + q + " OR mname LIKE " + q + " OR lname LIKE " + q ;
-        
-        db.query(name, function (err, result) {
-            if (err) throw err;
-            console.log(result);
-            res.render("index", {result:result});
-        });
-        let count = "SELECT DISTINCT COUNT(contact.contact_id) " +
-        "FROM contact " + 
-        "LEFT JOIN address ON contact.contact_id = address.contact_id " + 
-        "WHERE address_line LIKE" + q + "OR city LIKE " + q + " OR state LIKE " + q + 
-        " OR fname LIKE " + q + " OR mname LIKE " + q + " OR lname LIKE " + q ;
+        var search_count = "SELECT count(*) as count from (" + search + ") AS search";
 
-        db.query(count, function (err, count) {
-            if (err) throw err;
-            console.log(count);
-            res.render("index", {count:count});
+        db.query(search_count, function (err, count) {
+            if (err) console.log(err);
+            console.log(count[0].count);
+            db.query(search, function (err, search_result) {
+                if (err) console.log(err);
+                //console.log(search_result + " " + count + " " + req.query.search);
+                res.render("index", {search_result : search_result,
+                                     count     : count[0].count,
+                                     search_query  : req.query.search});
+            });
         });
     }
 });
@@ -81,7 +77,7 @@ app.post('/add', function(req, res){
     }
     else{
         db.query(sql, [values], function (err, result) {
-            if (err) throw err;
+            if (err) console.log(err);
             console.log("Number of records inserted: " + result.affectedRows + result.insertId);
             console.log(result);
         });
@@ -94,18 +90,34 @@ app.post('/add', function(req, res){
 });
 
 app.get("/delete/:id", function(req, res){
-    console.log("delete route : " + id);
     var id = req.params.id;
-    var sql = "DELETE FROM contact WHERE contact_id='" + id + "'";
-    db.query(sql, function (err, result) {
-        if (err) {
-            console.log(err);
-            res.send(err);
-        }
+    console.log("delete route : " + id);
+    var delete_from_address = "DELETE FROM address WHERE contact_id='" + id + "'";
+    var delete_from_phone = "DELETE FROM phone WHERE contact_id='" + id + "'";
+    var delete_from_date = "DELETE FROM date WHERE contact_id='" + id + "'";
+    var delete_from_contact = "DELETE FROM contact WHERE contact_id='" + id + "'";
+    db.query(delete_from_address, function (err, result) {
+        if (err) console.log(err);
         console.log("Number of records deleted: " + result.affectedRows);
-        console.log(result);
+        
+        db.query(delete_from_phone, function (err, result){
+            if (err) console.log(err);
+            console.log("Number of records deleted: " + result.affectedRows);
+            
+            db.query(delete_from_date, function (err, result){
+                if (err) console.log(err);
+                console.log("Number of records deleted: " + result.affectedRows);
+                
+                db.query(delete_from_contact, function (err, result){
+                    if (err) console.log(err);
+                    console.log("Number of records deleted: " + result.affectedRows);
+                    console.log(result);
+                    res.redirect('/');
+                });
+            });
+        });
     });
-    res.redirect('/');
+    
 });
 
 // app.get("/edit/:id", function(req, res){

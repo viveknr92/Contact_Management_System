@@ -5,7 +5,7 @@
         <h1>Contact Manager</h1>
         <form action="/" method="GET">
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="Search" name="search" id="searchValue" required>
+                <input type="text" class="form-control" placeholder="Search" name="search" id="searchValue" value='' required>
             </div>
             <div>
                 <button type="submit" class="btn btn-default" id="searchbutton">Search</button>
@@ -30,10 +30,12 @@
                 </tr>
             </thead>
             <tbody id="searchQuery">
-            <% if (result != null && result.length > 0) {%>
-            <% console.log("view : " + result[0].fname); %>
+            <% if (search_result != null && search_result.length > 0) {%>
+            <% console.log("view : " + search_result[0].fname); %>
+            <p><%= count %> Contacts found</p>
+            <% console.log("query : " + search_query); %>
             <% var editvar = null;  %>
-            <% result.forEach((r, index) => { %>
+            <% search_result.forEach((r, index) => { %>
                     <tr>
                         <% console.log("view 2: " + JSON.stringify(r)); %>
                         <td><%= r.contact_id %></td>
