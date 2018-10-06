@@ -82,21 +82,17 @@ app.get("/addpage", function(req, res){
     }
 });
 
-app.post("/edit", function(req, res){
+app.post("/edit/:id", function(req, res){
     var id = req.params.id;
     console.log("edit route : " + id);
     var sql = "UPDATE contact "+
-    "SET fname = ?, mname = ?, lname = ?";
-    var values = [
-        [req.body.fname, req.body.mname, req.body.lname]
-    ];
-    db.query(sql,[values] , function (err, result){
+    "SET fname = " + "'" + req.body.fname + "'" + " , mname = " + "'" + req.body.mname + "'" + " , lname = " + "'" + req.body.lname + "'" + 
+    " where contact_id=" + id;
+    db.query(sql, function (err, result){
         if (err) console.log(err);
-        console.log("Number of records deleted: " + result.affectedRows);
         console.log(result);
         res.redirect('/');
     });
-    res.redirect("/");
 });
 
 app.post('/add', function(req, res){

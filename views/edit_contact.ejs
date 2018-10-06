@@ -10,7 +10,7 @@
     <div class="">
         <h5>Edit Contact - <%= contact_id %></h5>
     </div>
-    <form action="/edit" method="POST">
+    <form action="/edit/<%= contact_id %>" method="POST">
         <div class="form-row">
             <div class="form-group col-md-4">
                 <input type="text" value="<%= contact_name[0].fname %>" class="form-control" id="fname" name="fname" placeholder="First Name">
