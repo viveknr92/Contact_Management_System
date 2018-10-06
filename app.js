@@ -74,7 +74,7 @@ app.get("/addpage", function(req, res){
                         // console.log(address);
                         // console.log(phone);
                         // console.log(date);
-                        res.render("edit_contact", {contact_name : contact_name, address:address, phone:phone, date:date});
+                        res.render("edit_contact", {contact_id : q, contact_name : contact_name, address:address, phone:phone, date:date});
                     });
                 });
             });
@@ -154,24 +154,24 @@ app.post('/add', function(req, res){
             var datevalues = [];
             for(let i = 0; i < date_type.length ; i++){
                 if(date_type[i] != ""){
-                    datevalues.push([date_type[i], date[i]]);
+                    datevalues.push([result.insertId, date_type[i], date[i]]);
                 }
             }
             console.log(addressvalues);
             console.log(phonevalues);
             console.log(datevalues);
             
-            db.query(sql2,[addressvalues], function (err, result){
+            db.query(sql2,[addressvalues], function (err, result2){
                 if (err) console.log(err);
-                console.log(result);
+                console.log("insertId " + result2.insertId);
                 
-                db.query(sql3,[phonevalues], function (err, result){
+                db.query(sql3,[phonevalues], function (err, result3){
                     if (err) console.log(err);
-                    console.log(result);
+                    console.log("insertId " + result3.insertId);
                     
-                    db.query(sql4,[datevalues], function (err, result){
+                    db.query(sql4,[datevalues], function (err, result4){
                         if (err) console.log(err);
-                        console.log(result);
+                        console.log("insertId " + result4.insertId);
                         res.redirect("/");
                     });
                 });
