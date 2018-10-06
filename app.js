@@ -58,11 +58,26 @@ app.get("/addpage", function(req, res){
     }
     else{
         let q = req.query.edit;
-        sql = "SELECT * from contact where contact_id=" + q;
+        let sql = "SELECT * from contact where contact_id=" + q;
+        let sql2 = "SELECT * from address where contact_id=" + q;
+        let sql3 = "SELECT * from phone where contact_id=" + q;
+        let sql4 = "SELECT * from date where contact_id=" + q;
         db.query(sql, function (err, contact_name){
             if (err) console.log(err);
-            console.log(contact_name[0].fname);
-            res.render("edit_contact", {contact_name : contact_name});
+            db.query(sql2, function (err, address){
+                if (err) console.log(err);
+                db.query(sql3, function (err, phone){
+                    if (err) console.log(err);
+                    db.query(sql4, function (err, date){
+                        if (err) console.log(err);
+                        // console.log(contact_name);
+                        // console.log(address);
+                        // console.log(phone);
+                        // console.log(date);
+                        res.render("edit_contact", {contact_name : contact_name, address:address, phone:phone, date:date});
+                    });
+                });
+            });
         });
     }
 });
