@@ -105,50 +105,26 @@ app.post('/add', function(req, res){
     var city = req.body.city;
     var state = req.body.state;
     var zip = req.body.zip;
-
+    
     var phone_type = req.body.phone_type;
-    console.log("phone_type : " + req.body.phone_type);
-    var area_code = req.body.area_code;
-    var number = req.body.number;
+    var area_code = [];
+    var number = [];
+    
+    for (ph of req.body.phone) {
+        area_code.push(ph.substring(0, 3));
+        number.push(ph.substring(3,10));
+    }
+    //console.log(area_code);
+    //console.log(number);
 
     var date_type = req.body.date_type;
     var date = req.body.date;
 
+    //console.log(date);
     var sql = "INSERT INTO contact (fname, mname, lname) VALUES ?";
     var values = [
         [req.body.fname, req.body.mname, req.body.lname]
     ];
-
-    var sql2 = "INSERT INTO address (contact_id, address_type, address_line, city, state, zip) VALUES (?, ?)";
-    var addressvalues = new Array();
-    console.log(addressvalues);
-    for(let i = 0; i < address_type.length ; i++){
-        if(address_type[i] != ""){
-            addressvalues.push([address_type[i], address_line[i], city[i], state[i], zip[i]]);
-        }
-    }
-    console.log(addressvalues);
-
-    var sql3 = "INSERT INTO phone (contact_id, phone_type, area_code, number) VALUES (?, ?)";
-    var phonevalues = new Array();
-    console.log(phonevalues);
-    for(let i = 0; i < phone_type.length ; i++){
-        if(phone_type[i] != ""){
-            phonevalues.push([phone_type[i], area_code[i], number[i]]);
-        }
-    }
-    console.log(phonevalues);
-
-    var sql4 = "INSERT INTO date (contact_id, date_type, date) VALUES (?, ?)";
-    var datevalues = new Array();
-    console.log(datevalues);
-    for(let i = 0; i < date_type.length ; i++){
-        if(date_type[i] != ""){
-            datevalues.push([date_type[i], date[i]]);
-        }
-    }
-    console.log(datevalues);
-
     
     if(req.body.fname == "" || req.body.mname == "" || req.body.lname == ""){
         console.log("did not insert");
@@ -157,24 +133,50 @@ app.post('/add', function(req, res){
         db.query(sql, [values], function (err, result) {
             if (err) console.log(err);
             console.log("insertId " + result.insertId);
-            console.log(result);
-            for(let i = 0; i < addressvalues.length ; i++){
-                db.query(sql2,[result.insertId, addressvalues[i]], function (err, result){
-                    if (err) console.log(err);
-                    for(let i = 0; i < phonevalues.length ; i++){
-                        db.query(sql3,[result.insertId, phonevalues[i]], function (err, result){
-                            if (err) console.log(err);
-                            for(let i = 0; i < datevalues.length ; i++){
-                                db.query(sql4,[result.insertId, datevalues[i]], function (err, result){
-                                    if (err) console.log(err);
-                                });
-                            }
-                        });
-                    }
-                });
+            
+            var sql2 = "INSERT INTO address (contact_id, address_type, address_line, city, state, zip) VALUES ?";
+            var addressvalues = [];
+            for(let i = 0; i < address_type.length ; i++){
+                if(address_type[i] != ""){
+                    addressvalues.push([result.insertId, address_type[i], address_line[i], city[i], state[i], zip[i]]);
+                }
             }
+            
+            var sql3 = "INSERT INTO phone (contact_id, phone_type, area_code, number) VALUES ?";
+            var phonevalues = [];
+            for(let i = 0; i < phone_type.length ; i++){
+                if(phone_type[i] != ""){
+                    phonevalues.push([result.insertId, phone_type[i], area_code[i], number[i]]);
+                }
+            }
+
+            var sql4 = "INSERT INTO date (contact_id, date_type, date) VALUES ?";
+            var datevalues = [];
+            for(let i = 0; i < date_type.length ; i++){
+                if(date_type[i] != ""){
+                    datevalues.push([date_type[i], date[i]]);
+                }
+            }
+            console.log(addressvalues);
+            console.log(phonevalues);
+            console.log(datevalues);
+            
+            db.query(sql2,[addressvalues], function (err, result){
+                if (err) console.log(err);
+                console.log(result);
+                
+                db.query(sql3,[phonevalues], function (err, result){
+                    if (err) console.log(err);
+                    console.log(result);
+                    
+                    db.query(sql4,[datevalues], function (err, result){
+                        if (err) console.log(err);
+                        console.log(result);
+                        res.redirect("/");
+                    });
+                });
+            });
         });
-        res.redirect("/");
     }
 });
 
@@ -213,12 +215,3 @@ app.get("/delete/:id", function(req, res){
 app.listen(3000, "localhost", function(){
     console.log("Server started at 3000");
 });
-
-// db.query("SELECT * FROM contact where fname='Cindra'", function (err, result) {
-//     if (err) console.log(err);
-//     console.log(result);
-// });
-
-// app.get('/', function(req, res){
-//     res.render("index");
-// });
