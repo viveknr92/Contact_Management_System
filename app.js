@@ -5,11 +5,7 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended:true}));
 app.set("view engine","ejs");
 
-
 var mysql = require('mysql');
-// var mysql2 = require('mysql2');
-// const Sequelize = require('sequelize');
-
 
 var db = mysql.createConnection({
     host: "localhost",
@@ -24,14 +20,6 @@ db.connect(function(err) {
 });
 global.db = db;
 
-// db.query("SELECT * FROM contact where fname='Cindra'", function (err, result) {
-//     if (err) console.log(err);
-//     console.log(result);
-// });
-
-// app.get('/', function(req, res){
-//     res.render("index");
-// });
 app.get('/', function(req, res){
     if (typeof req.query.search === "undefined"){
         res.render("index",{search_result : null,
@@ -62,15 +50,39 @@ app.get('/', function(req, res){
         });
     }
 });
-function populate(form){
-    var arr = [];
-    if (form != undefined){
-        for(let i = 0; i < form.length ; i++){
-            arr.push(form[i]);
-        }
+
+app.get("/addpage", function(req, res){
+    //console.log(req.body);
+    if (typeof req.query.edit === "undefined"){
+        res.render("add_contact");
     }
-    return arr;
-}
+    else{
+        let q = req.query.edit;
+        sql = "SELECT * from contact where contact_id=" + q;
+        db.query(sql, function (err, contact_name){
+            if (err) console.log(err);
+            console.log(contact_name[0].fname);
+            res.render("edit_contact", {contact_name : contact_name});
+        });
+    }
+});
+
+app.post("/edit", function(req, res){
+    var id = req.params.id;
+    console.log("edit route : " + id);
+    var sql = "UPDATE contact "+
+    "SET fname = ?, mname = ?, lname = ?";
+    var values = [
+        [req.body.fname, req.body.mname, req.body.lname]
+    ];
+    db.query(sql,[values] , function (err, result){
+        if (err) console.log(err);
+        console.log("Number of records deleted: " + result.affectedRows);
+        console.log(result);
+        res.redirect('/');
+    });
+    res.redirect("/");
+});
 
 app.post('/add', function(req, res){
     console.log("req.body.fname : " + req.body.fname);
@@ -133,7 +145,7 @@ app.post('/add', function(req, res){
                     if (err) console.log(err);
                 });
             }
-            res.send("address created");
+            res.redirect("/");
         });
     }
 });
@@ -169,26 +181,16 @@ app.get("/delete/:id", function(req, res){
     
 });
 
-// app.get("/edit/:id", function(req, res){
-//     var id = req.params.id;
-//     console.log("edit route : " + id);
-//     res.redirect('/');
-// });
-// app.get('/edit/:id', editPlayerPage);
-// app.get('/delete/:id', deletePlayer);
-// app.post('/edit/:id', editPlayer);
-
-// app.post("/add", function(req, res){
-//     console.log(req.body);
-//     res.send("POSTED");
-// });
-// app.get("/:thing", function(req, res){
-//     var thing = req.params.thing;
-//     res.render("home", {thingVar:thing});
-// });
-
-
 
 app.listen(3000, "localhost", function(){
     console.log("Server started at 3000");
 });
+
+// db.query("SELECT * FROM contact where fname='Cindra'", function (err, result) {
+//     if (err) console.log(err);
+//     console.log(result);
+// });
+
+// app.get('/', function(req, res){
+//     res.render("index");
+// });

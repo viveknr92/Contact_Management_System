@@ -1,119 +1,109 @@
-<div class="modal fade" id="createContactModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">New Contact</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <form action="/add" method="POST">
-                    <div class="modal-body">
-                        <div class="form-row">
-                            <div class="form-group col-md-4">
-                                <input type="text" class="form-control" id="fname" name="fname" placeholder="First Name">
-                            </div>
-                            <div class="form-group col-md-4">
-                                <input type="text" class="form-control" id="mname" name="mname" placeholder="Middle Name">
-                            </div>
-                            <div class="form-group col-md-4">
-                                <input type="text" class="form-control" id="lname" name="lname" placeholder="Last name">
-                            </div>
-                        </div>
-                        <div class="form-row ">
-                            <div class="form-group col-md-12">
-                                <button type="button" class="btn btn-success" id="addAddress">+ Add Address</button>
-                            </div>
-                        </div>
-                        <div id="address" class="form-group" style="display:none">
-                            <div class="form-row">
-                                <div class="form-group col-md-3">
-                                    <input list="addressType" name="address_type[]" class="form-control">
-                                    <datalist id="addressType">
-                                        <option value="home">
-                                        <option value="work">
-                                    </datalist>
-                                </div>
-                                <div class="form-group col-md-8">
-                                    <input type="text" class="form-control" id="inputAddress" name="address_line[]" placeholder="Address" value="">
-                                </div>
-                                <div class="form-group col-md-1">
-                                    <button type="button" class="btn btn-danger" id="deleteAddress"> X </button>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-5">
-                                    <input type="text" class="form-control" placeholder="City" id="inputCity" name="city[]">
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <input type="text" class="form-control" placeholder="State" id="inputState" name="state[]">
-                                </div>
-                                <div class="form-group col-md-2">
-                                    <input type="text" class="form-control" placeholder="Zip" id="inputZip" name="zip[]">
-                                </div>
-                            </div>
-                        </div><!-- Address -->
-                        <div id="cloneAddresshere">
-                            <!-- Address -->
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-2">
-                                <button type="button" class="btn btn-success" id="addPhone">+ Add Phone</button>
-                            </div>
-                        </div>
-                        <div id="phone" class="form-group" style="display:none">
-                            <div class="form-row">
-                                <div class="form-group col-md-3">
-                                    <input list="PhoneType" name="phoneType[]" class="form-control">
-                                    <datalist id="PhoneType">
-                                        <option value="home">
-                                        <option value="work">
-                                    </datalist>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <input type="text" class="form-control" id="inputPhone" name="phone[]" placeholder="Phone">
-                                </div>
-                                <div class="form-group col-md-1">
-                                    <button type="button" class="btn btn-danger" id="deletePhone"> X </button>
-                                </div>
-                            </div>
-                        </div> <!-- Phone -->
-                        <div id="clonePhonehere">
-                            <!-- Phone -->
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-2">
-                                <button type="button" class="btn btn-success" id="addEvent">+ Add Event</button>
-                            </div>
-                        </div>
-                        <div id="event" class="form-group" style="display:none">
-                            <div class="form-row">
-                                <div class="form-group col-md-3">
-                                    <input list="EventType" name="eventType[]" class="form-control">
-                                    <datalist id="EventType">
-                                        <option value="home">
-                                        <option value="work">   
-                                    </datalist>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <input type="text" class="form-control" id="inputEvent" placeholder="MM-DD-YYYY" name="event[]">
-                                </div>
-                                <div class="form-group col-md-1">
-                                    <button type="button" class="btn btn-danger" id="deleteEvent"> X </button>
-                                </div>
-                            </div>
-                        </div> <!-- Event -->
-                        <div id="cloneEventhere">
-                            <!-- Event -->
-                        </div>
-
-                    
-                </div> <!-- modal body -->
-                <div class="modal-footer">
-                    <button type="submit" id="createcontact" class="btn btn-primary">Create Contact</button>
-                </div>
-                </form>
-            </div>
-        </div>
+<% include partials/header %>
+<div class="container">
+    <div class="">
+        <h5>New Contact</h5>
     </div>
+    <form action="/add" method="POST">
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <input type="text" class="form-control" id="fname" name="fname" placeholder="First Name">
+                </div>
+                <div class="form-group col-md-4">
+                    <input type="text" class="form-control" id="mname" name="mname" placeholder="Middle Name">
+                </div>
+                <div class="form-group col-md-4">
+                    <input type="text" class="form-control" id="lname" name="lname" placeholder="Last name">
+                </div>
+            </div>
+            <div class="form-row ">
+                <div class="form-group col-md-12">
+                    <button type="button" class="btn btn-success" id="addAddress">+ Add Address</button>
+                </div>
+            </div>
+            <div id="address" class="form-group" style="display:none">
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <input list="addressType" name="address_type[]" class="form-control">
+                        <datalist id="addressType">
+                            <option value="home">
+                            <option value="work">
+                        </datalist>
+                    </div>
+                    <div class="form-group col-md-8">
+                        <input type="text" class="form-control" id="inputAddress" name="address_line[]" placeholder="Address" value="">
+                    </div>
+                    <div class="form-group col-md-1">
+                        <button type="button" class="btn btn-danger" id="deleteAddress"> X </button>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-5">
+                        <input type="text" class="form-control" placeholder="City" id="inputCity" name="city[]">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <input type="text" class="form-control" placeholder="State" id="inputState" name="state[]">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <input type="text" class="form-control" placeholder="Zip" id="inputZip" name="zip[]">
+                    </div>
+                </div>
+            </div><!-- Address -->
+            <div id="cloneAddresshere">
+                <!-- Address -->
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-2">
+                    <button type="button" class="btn btn-success" id="addPhone">+ Add Phone</button>
+                </div>
+            </div>
+            <div id="phone" class="form-group" style="display:none">
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <input list="PhoneType" name="phoneType[]" class="form-control">
+                        <datalist id="PhoneType">
+                            <option value="home">
+                            <option value="work">
+                        </datalist>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <input type="text" class="form-control" id="inputPhone" name="phone[]" placeholder="Phone">
+                    </div>
+                    <div class="form-group col-md-1">
+                        <button type="button" class="btn btn-danger" id="deletePhone"> X </button>
+                    </div>
+                </div>
+            </div> <!-- Phone -->
+            <div id="clonePhonehere">
+                <!-- Phone -->
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-2">
+                    <button type="button" class="btn btn-success" id="addEvent">+ Add Event</button>
+                </div>
+            </div>
+            <div id="event" class="form-group" style="display:none">
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <input list="EventType" name="eventType[]" class="form-control">
+                        <datalist id="EventType">
+                            <option value="home">
+                            <option value="work">   
+                        </datalist>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <input type="text" class="form-control" id="inputEvent" placeholder="MM-DD-YYYY" name="event[]">
+                    </div>
+                    <div class="form-group col-md-1">
+                        <button type="button" class="btn btn-danger" id="deleteEvent"> X </button>
+                    </div>
+                </div>
+            </div> <!-- Event -->
+            <div id="cloneEventhere">
+                <!-- Event -->
+            </div>
+    <div class="">
+        <button type="submit" id="createcontact" class="btn btn-primary">Create Contact</button>
+    </div>
+    </form>
+</div>
+<% include partials/footer %>
