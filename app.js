@@ -34,7 +34,9 @@ global.db = db;
 // });
 app.get('/', function(req, res){
     if (typeof req.query.search === "undefined"){
-        res.render("index", {result:null});
+        res.render("index",{search_result : null,
+            count     : 0,
+            search_query  : ""});
     }
     else{
         console.log("search : " + req.query.search);
@@ -52,7 +54,7 @@ app.get('/', function(req, res){
             console.log(count[0].count);
             db.query(search, function (err, search_result) {
                 if (err) console.log(err);
-                //console.log(search_result + " " + count + " " + req.query.search);
+                console.log(search_result + " " + count + " " + req.query.search);
                 res.render("index", {search_result : search_result,
                                      count     : count[0].count,
                                      search_query  : req.query.search});
@@ -60,17 +62,63 @@ app.get('/', function(req, res){
         });
     }
 });
+function populate(form){
+    var arr = [];
+    if (form != undefined){
+        for(let i = 0; i < form.length ; i++){
+            arr.push(form[i]);
+        }
+    }
+    return arr;
+}
 
 app.post('/add', function(req, res){
-    console.log("POST request add : " + req.body.fname);
-    console.log("POST request add : " + req.body.address_line[0]);
-    console.log("POST request add : " + req.body.address_line[1]);
-    console.log("POST request len : " + req.body.address_line.length);
+    console.log("req.body.fname : " + req.body.fname);
+    console.log("req.body.mname : " + req.body.mname);
+    console.log("req.body.lname : " + req.body.lname);
+    console.log("req.body.lname : " + req.body.address_type);
+    console.log("req.body.lname : " + req.body.address_line);
+    var address_type = req.body.address_type;
+    var address_line = req.body.address_line;
+    var city = req.body.city;
+    var state = req.body.state;
+    var zip = req.body.zip;
+
     var sql = "INSERT INTO contact (fname, mname, lname) VALUES ?";
     var values = [
         [req.body.fname, req.body.mname, req.body.lname]
     ];
-    console.log(values);
+
+    var sql2 = "INSERT INTO address (contact_id, address_type, address_line, city, state, zip) VALUES (?, ?)";
+    var addressvalues = new Array();
+    console.log(addressvalues);
+    for(let i = 0; i < address_type.length ; i++){
+        if(address_type[i] != ""){
+            addressvalues.push([address_type[i], address_line[i], city[i], state[i], zip[i]]);
+        }
+    }
+    console.log(addressvalues);
+
+    var sql2 = "INSERT INTO phone (contact_id, phone_type, area_code, number) VALUES (?, ?)";
+    var phonevalues = new Array();
+    console.log(phonevalues);
+    for(let i = 0; i < phone_type.length ; i++){
+        if(phone_type[i] != ""){
+            phonevalues.push([phone_type[i], area_code[i], number[i]]);
+        }
+    }
+    console.log(addressvalues);
+
+    var sql2 = "INSERT INTO date (contact_id, date_type, date) VALUES (?, ?)";
+    var datevalues = new Array();
+    console.log(datevalues);
+    for(let i = 0; i < phone_type.length ; i++){
+        if(phone_type[i] != ""){
+            phonevalues.push([phone_type[i], area_code[i], number[i]]);
+        }
+    }
+    console.log(addressvalues);
+
     
     if(req.body.fname == "" || req.body.mname == "" || req.body.lname == ""){
         console.log("did not insert");
@@ -80,13 +128,14 @@ app.post('/add', function(req, res){
             if (err) console.log(err);
             console.log("Number of records inserted: " + result.affectedRows + result.insertId);
             console.log(result);
+            for(let i = 0; i < addressvalues.length ; i++){
+                db.query(sql2,[result.insertId, addressvalues[i]], function (err, result){
+                    if (err) console.log(err);
+                });
+            }
+            res.send("address created");
         });
     }
-    // var sql2 = "INSERT INTO address (contact_id, address_type, address_line, city, state, zip) VALUES ?";
-    // var values = [
-    //     [req.body.fname, req.body.mname, req.body.lname]
-    // ];
-    res.redirect('/');
 });
 
 app.get("/delete/:id", function(req, res){
