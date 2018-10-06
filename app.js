@@ -100,16 +100,19 @@ app.post("/edit", function(req, res){
 });
 
 app.post('/add', function(req, res){
-    console.log("req.body.fname : " + req.body.fname);
-    console.log("req.body.mname : " + req.body.mname);
-    console.log("req.body.lname : " + req.body.lname);
-    console.log("req.body.lname : " + req.body.address_type);
-    console.log("req.body.lname : " + req.body.address_line);
     var address_type = req.body.address_type;
     var address_line = req.body.address_line;
     var city = req.body.city;
     var state = req.body.state;
     var zip = req.body.zip;
+
+    var phone_type = req.body.phone_type;
+    console.log("phone_type : " + req.body.phone_type);
+    var area_code = req.body.area_code;
+    var number = req.body.number;
+
+    var date_type = req.body.date_type;
+    var date = req.body.date;
 
     var sql = "INSERT INTO contact (fname, mname, lname) VALUES ?";
     var values = [
@@ -126,7 +129,7 @@ app.post('/add', function(req, res){
     }
     console.log(addressvalues);
 
-    var sql2 = "INSERT INTO phone (contact_id, phone_type, area_code, number) VALUES (?, ?)";
+    var sql3 = "INSERT INTO phone (contact_id, phone_type, area_code, number) VALUES (?, ?)";
     var phonevalues = new Array();
     console.log(phonevalues);
     for(let i = 0; i < phone_type.length ; i++){
@@ -134,17 +137,17 @@ app.post('/add', function(req, res){
             phonevalues.push([phone_type[i], area_code[i], number[i]]);
         }
     }
-    console.log(addressvalues);
+    console.log(phonevalues);
 
-    var sql2 = "INSERT INTO date (contact_id, date_type, date) VALUES (?, ?)";
+    var sql4 = "INSERT INTO date (contact_id, date_type, date) VALUES (?, ?)";
     var datevalues = new Array();
     console.log(datevalues);
-    for(let i = 0; i < phone_type.length ; i++){
-        if(phone_type[i] != ""){
-            phonevalues.push([phone_type[i], area_code[i], number[i]]);
+    for(let i = 0; i < date_type.length ; i++){
+        if(date_type[i] != ""){
+            datevalues.push([date_type[i], date[i]]);
         }
     }
-    console.log(addressvalues);
+    console.log(datevalues);
 
     
     if(req.body.fname == "" || req.body.mname == "" || req.body.lname == ""){
@@ -153,15 +156,25 @@ app.post('/add', function(req, res){
     else{
         db.query(sql, [values], function (err, result) {
             if (err) console.log(err);
-            console.log("Number of records inserted: " + result.affectedRows + result.insertId);
+            console.log("insertId " + result.insertId);
             console.log(result);
             for(let i = 0; i < addressvalues.length ; i++){
                 db.query(sql2,[result.insertId, addressvalues[i]], function (err, result){
                     if (err) console.log(err);
+                    for(let i = 0; i < phonevalues.length ; i++){
+                        db.query(sql3,[result.insertId, phonevalues[i]], function (err, result){
+                            if (err) console.log(err);
+                            for(let i = 0; i < datevalues.length ; i++){
+                                db.query(sql4,[result.insertId, datevalues[i]], function (err, result){
+                                    if (err) console.log(err);
+                                });
+                            }
+                        });
+                    }
                 });
             }
-            res.redirect("/");
         });
+        res.redirect("/");
     }
 });
 

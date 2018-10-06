@@ -5,7 +5,7 @@
         <h1>Contact Manager</h1>
         <form action="/" method="GET">
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="Search" name="search" id="searchValue" required>
+                <input type="text" class="form-control" placeholder="Search" value="<%= search_query %>" name="search" id="searchValue" required>
             </div>
             <div>
                 <button type="submit" class="btn btn-default" id="searchbutton">Search</button>
@@ -34,7 +34,7 @@
             <p><%= count %> Contacts found</p>
             <% console.log("query : " + search_query); %>
             <% var editvar = null;  %>
-            <% search_result.forEach((r, index) => { %>
+            <% for(r of search_result) { %>
                     <tr>
                         <% console.log("view 2: " + JSON.stringify(r)); %>
                         <td><%= r.contact_id %></td>
@@ -44,7 +44,7 @@
                         <td><a href="/addpage?edit=<%= r.contact_id %>" class="btn btn-sm btn-success" id="editButton">Edit</button>
                             <a href="/delete/<%= r.contact_id %>" class="btn btn-sm btn-danger" id="deleteButton">Delete</a></td>
                     </tr>
-                    <% }) %>
+            <% } %>
             </tbody>
         </table>
         <% } else { %>
