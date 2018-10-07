@@ -86,16 +86,58 @@ app.get("/addpage", function(req, res){
     }
 });
 
+function executeQuery (query, args) {
+    return new Promise(function(resolve, reject) {
+        db.query(query, args, function(err, result) {
+            if (err) {return reject(err)}
+            return resolve(result)
+        })
+    })
+}
+
 app.post("/edit/:id", function(req, res){
     var id = req.params.id;
     console.log("edit route : " + id);
     var sql = "UPDATE contact "+
     "SET fname = " + "'" + req.body.fname + "'" + " , mname = " + "'" + req.body.mname + "'" + " , lname = " + "'" + req.body.lname + "'" + 
     " where contact_id=" + id;
+    console.log(req.body);
+//     { fname: 'Vivek',
+//   mname: 'Nagalapura',
+//   lname: 'Ravindra',
+//   e_address_type: [ 'home' ],
+//   e_address_line: [ '3600 Alma Rd, Apt 2825' ],
+//   e_city: [ 'Richardson' ],
+//   e_state: [ 'TX' ],
+//   e_zip: [ '75080' ],
+//   e_address_id: [ '1234' ],
+//   address_type: [ '' ],
+//   address_line: [ '' ],
+//   city: [ '' ],
+//   state: [ '' ],
+//   zip: [ '' ],
+//   e_phone_type: [ 'home' ],
+//   e_phone: [ '4699293668' ],
+//   e_phone_id: [ '2092' ],
+//   phone_type: [ '' ],
+//   phone: [ '' ],
+//   e_date_type: [ 'work' ],
+//   e_date: [ '2018-10-09' ],
+//   e_date_id: [ '589' ],
+//   date_type: [ '' ],
+//   date: [ '' ] }
+
     db.query(sql, function (err, result){
         if (err) console.log(err);
         console.log(result);
-        res.redirect('/');
+        var promises1 = [];
+        var sql2 = "INSERT INTO address (contact_id, address_type, address_line, city, state, zip) VALUES ?";
+            var addressvalues = [];
+            for(let i = 0; i < address_type.length ; i++){
+                if(address_type[i] != ""){
+                    addressvalues.push([result.insertId, address_type[i], address_line[i], city[i], state[i], zip[i]]);
+                }
+            }
     });
 });
 
