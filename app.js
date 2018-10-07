@@ -127,18 +127,18 @@ app.post("/edit/:id", function(req, res){
 //   date_type: [ '' ],
 //   date: [ '' ] }
 
-    db.query(sql, function (err, result){
-        if (err) console.log(err);
-        console.log(result);
-        var promises1 = [];
-        var sql2 = "INSERT INTO address (contact_id, address_type, address_line, city, state, zip) VALUES ?";
-            var addressvalues = [];
-            for(let i = 0; i < address_type.length ; i++){
-                if(address_type[i] != ""){
-                    addressvalues.push([result.insertId, address_type[i], address_line[i], city[i], state[i], zip[i]]);
-                }
-            }
-    });
+    // db.query(sql, function (err, result){
+    //     if (err) console.log(err);
+    //     console.log(result);
+    //     var promises1 = [];
+    //     var sql2 = "INSERT INTO address (contact_id, address_type, address_line, city, state, zip) VALUES ?";
+    //         var addressvalues = [];
+    //         for(let i = 0; i < address_type.length ; i++){
+    //             if(address_type[i] != ""){
+    //                 addressvalues.push([result.insertId, address_type[i], address_line[i], city[i], state[i], zip[i]]);
+    //             }
+    //         }
+    // });
 });
 
 app.post('/add', function(req, res){
