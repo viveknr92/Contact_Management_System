@@ -73,8 +73,12 @@ app.get("/addpage", function(req, res){
                         // console.log(contact_name);
                         // console.log(address);
                         // console.log(phone);
-                        // console.log(date);
-                        res.render("edit_contact", {contact_id : q, contact_name : contact_name, address:address, phone:phone, date:date});
+                        date.forEach(function(entry) {
+                            entry.date = entry.date.toISOString().split('T')[0];
+                        });
+                        console.log(date);
+                        res.render("edit_contact", {contact_id : q,
+                             contact_name : contact_name, address:address, phone:phone, date:date});
                     });
                 });
             });
