@@ -102,6 +102,7 @@ app.post("/edit/:id", function(req, res){
     "SET fname = " + "'" + req.body.fname + "'" + " , mname = " + "'" + req.body.mname + "'" + " , lname = " + "'" + req.body.lname + "'" + 
     " where contact_id=" + id;
     console.log(req.body);
+    res.redirect("/");
 //     { fname: 'Vivek',
 //   mname: 'Nagalapura',
 //   lname: 'Ravindra',
