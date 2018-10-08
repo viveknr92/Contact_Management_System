@@ -96,37 +96,96 @@ function executeQuery (query, args) {
 }
 
 app.post("/edit/:id", function(req, res){
-    var id = req.params.id;
-    console.log("edit route : " + id);
+    var contact_id = req.params.id;
+    console.log("edit route : " + contact_id);
     var sql = "UPDATE contact "+
-    "SET fname = " + "'" + req.body.fname + "'" + " , mname = " + "'" + req.body.mname + "'" + " , lname = " + "'" + req.body.lname + "'" + 
-    " where contact_id=" + id;
+    "SET fname = " + "'" + req.body.fname + "'" + 
+    " , mname = " + "'" + req.body.mname + "'" + 
+    " , lname = " + "'" + req.body.lname + "'" + 
+    " where contact_id=" + contact_id;
     console.log(req.body);
+
+    //var promiseArray = constructQuery(req.body.e_address);
+    var query_array = [];
+    for(let i = 0; i < req.body.e_address.length ; i++){
+        let update_address = "UPDATE address "+
+        "SET address_type = " + "'" + req.body.e_address[i].address_type + "'" + 
+        " , address_line = " + "'" + req.body.e_address[i].address_line + "'" + 
+        " , city = " + "'" + req.body.e_address[i].city + "'" +
+        " , state = " + "'" + req.body.e_address[i].state + "'" +
+        " , zip = " + "'" + req.body.e_address[i].zip + "'" +
+        " where address_id=" + req.body.e_address[i].address_id;
+        query_array.push(update_address);
+    }
+
+    for(let i = 0; i < req.body.e_phone.length ; i++){
+        var update_phone = "UPDATE phone "+
+        "SET phone_type = " + "'" + req.body.e_phone[i].phone_type + "'" + 
+        " , phone = " + "'" + req.body.e_phone[i].phone + "'" + 
+        " where phone_id=" + req.body.e_phone[i].phone_id;
+        query_array.push(update_phone);
+    }
+    
+    for(let i = 0; i < req.body.e_event.length ; i++){
+        var update_date = "UPDATE date "+
+        "SET date_type = " + "'" + req.body.e_event[i].date_type + "'" + 
+        " , date = " + "'" + req.body.e_event[i].date + "'" + 
+        " where date_id=" + req.body.e_event[i].date_id;
+        query_array.push(update_date);
+    }
+
+    var add_address_insert = "INSERT INTO address (contact_id, address_type, address_line, city, state, zip) VALUES ?";
+    var addressvalues = [];
+    for(let i = 0; i < req.body.address.length ; i++){
+        if(address_type[i] != ""){
+            addressvalues.push([contact_id, req.body.address.address_type[i], req.body.address.address_line[i], req.body.address.city[i], req.body.address.state[i], req.body.address.zip[i]]);
+        }
+    }
+    add_address = mysql.format(add_address_insert, [addressvalues]);
+    query_array.push(add_address);
+
+    var add_phone_insert = "INSERT INTO phone (contact_id, phone_type, area_code, number) VALUES ?";
+    var phonevalues = [];
+    for(let i = 0; i < req.body.phone.length ; i++){
+        if(phone_type[i] != ""){
+            phonevalues.push([contact_id, req.body.phone.phone_type[i], req.body.phone.area_code[i], req.body.phone.number[i]]);
+        }
+    }
+    add_phone = mysql.format(add_phone_insert, [phonevalues]);
+    query_array.push(add_phone);
+
+    var add_date_insert = "INSERT INTO date (contact_id, date_type, date) VALUES ?";
+    var datevalues = [];
+    for(let i = 0; i < req.body.date.length ; i++){
+        if(phone_type[i] != ""){
+            datevalues.push([contact_id, req.body.date.date_type[i], req.body.date.date[i]]);
+        }
+    }
+    add_date = mysql.format(add_date_insert, [datevalues]);
+    query_array.push(add_date);
+
+    console.log(query_array);
     res.redirect("/");
-//     { fname: 'Vivek',
-//   mname: 'Nagalapura',
-//   lname: 'Ravindra',
-//   e_address_type: [ 'home' ],
-//   e_address_line: [ '3600 Alma Rd, Apt 2825' ],
-//   e_city: [ 'Richardson' ],
-//   e_state: [ 'TX' ],
-//   e_zip: [ '75080' ],
-//   e_address_id: [ '1234' ],
-//   address_type: [ '' ],
-//   address_line: [ '' ],
-//   city: [ '' ],
-//   state: [ '' ],
-//   zip: [ '' ],
-//   e_phone_type: [ 'home' ],
-//   e_phone: [ '4699293668' ],
-//   e_phone_id: [ '2092' ],
-//   phone_type: [ '' ],
-//   phone: [ '' ],
-//   e_date_type: [ 'work' ],
-//   e_date: [ '2018-10-09' ],
-//   e_date_id: [ '589' ],
-//   date_type: [ '' ],
-//   date: [ '' ] }
+// { fname: 'Vivek',
+// mname: 'Nagalapura',
+// lname: 'Ravindra',
+// e_address:[ { address_type: 'home',
+//         address_line: '3600 Alma Rd, Apt 2825',
+//         city: 'Richardson',
+//         state: 'TX',
+//         zip: '75080',
+//         address_id: '1234' } ],
+// address:
+//     [ { address_type: '',
+//         address_line: '',
+//         city: '',
+//         state: '',
+//         zip: '' } ],
+// e_phone:
+//     [ { phone_type: 'home', phone: '4699293668', phone_id: '2092' } ],
+// phone: [ { phone_type: '', phone: '' } ],
+// e_event: [ { date_type: 'work', date: '2018-10-09', date_id: '589' } ],
+// event: [ { date_type: '', date: '' } ] }
 
     // db.query(sql, function (err, result){
     //     if (err) console.log(err);
