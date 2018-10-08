@@ -86,9 +86,9 @@ app.get("/addpage", function(req, res){
     }
 });
 
-function executeQuery (query, args) {
+function executeQuery (query) {
     return new Promise(function(resolve, reject) {
-        db.query(query, args, function(err, result) {
+        db.query(query, function(err, result) {
             if (err) {return reject(err)}
             return resolve(result)
         })
@@ -100,12 +100,13 @@ app.post("/edit/:id", function(req, res){
     console.log("edit route : " + contact_id);
 
     var query_array = [];
-    var sql = "UPDATE contact "+
+    var promise_array = [];
+    var update_contact = "UPDATE contact "+
     "SET fname = " + "'" + req.body.fname + "'" + 
     " , mname = " + "'" + req.body.mname + "'" + 
     " , lname = " + "'" + req.body.lname + "'" + 
     " where contact_id=" + contact_id;
-    query_array.push(sql);
+    query_array.push(update_contact);
 
     //var promiseArray = constructQuery(req.body.e_address);
     if (req.body.e_address !== undefined){
@@ -124,7 +125,8 @@ app.post("/edit/:id", function(req, res){
         for(let i = 0; i < req.body.e_phone.length ; i++){
             var update_phone = "UPDATE phone "+
             "SET phone_type = " + "'" + req.body.e_phone[i].phone_type + "'" + 
-            " , phone = " + "'" + req.body.e_phone[i].phone + "'" + 
+            " , area_code = " + "'" + req.body.e_phone[i].phone.substring(0, 3) + "'" + 
+            " , number = " + "'" + req.body.e_phone[i].phone.substring(3,10) + "'" + 
             " where phone_id=" + req.body.e_phone[i].phone_id;
             query_array.push(update_phone);
         }
@@ -175,44 +177,20 @@ app.post("/edit/:id", function(req, res){
         add_date = mysql.format(add_date_insert, [datevalues]);
         query_array.push(add_date);
     }
-    for(val of query_array){
-        console.log(val);
-    }
+    console.log(query_array);
     //console.log(query_array);
-    res.redirect("/");
-// { fname: 'Vivek',
-// mname: 'Nagalapura',
-// lname: 'Ravindra',
-// e_address:[ { address_type: 'home',
-//         address_line: '3600 Alma Rd, Apt 2825',
-//         city: 'Richardson',
-//         state: 'TX',
-//         zip: '75080',
-//         address_id: '1234' } ],
-// address:
-//     [ { address_type: '',
-//         address_line: '',
-//         city: '',
-//         state: '',
-//         zip: '' } ],
-// e_phone:
-//     [ { phone_type: 'home', phone: '4699293668', phone_id: '2092' } ],
-// phone: [ { phone_type: '', phone: '' } ],
-// e_event: [ { date_type: 'work', date: '2018-10-09', date_id: '589' } ],
-// event: [ { date_type: '', date: '' } ] }
-
-    // db.query(sql, function (err, result){
-    //     if (err) console.log(err);
-    //     console.log(result);
-    //     var promises1 = [];
-    //     var sql2 = "INSERT INTO address (contact_id, address_type, address_line, city, state, zip) VALUES ?";
-    //         var addressvalues = [];
-    //         for(let i = 0; i < address_type.length ; i++){
-    //             if(address_type[i] != ""){
-    //                 addressvalues.push([result.insertId, address_type[i], address_line[i], city[i], state[i], zip[i]]);
-    //             }
-    //         }
-    // });
+    promise_array = [];
+    for(query of query_array){
+        promise_array.push(executeQuery(query));
+    }
+    console.log(promise_array);
+    Promise.all(promise_array)
+    .then(data => {
+        console.log("Query Results : -----------------------------");
+        console.log(data);
+        res.redirect("/");
+        return data;
+    });
 });
 
 app.post('/add', function(req, res){
