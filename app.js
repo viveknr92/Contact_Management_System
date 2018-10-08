@@ -98,73 +98,87 @@ function executeQuery (query, args) {
 app.post("/edit/:id", function(req, res){
     var contact_id = req.params.id;
     console.log("edit route : " + contact_id);
+
+    var query_array = [];
     var sql = "UPDATE contact "+
     "SET fname = " + "'" + req.body.fname + "'" + 
     " , mname = " + "'" + req.body.mname + "'" + 
     " , lname = " + "'" + req.body.lname + "'" + 
     " where contact_id=" + contact_id;
-    console.log(req.body);
+    query_array.push(sql);
 
     //var promiseArray = constructQuery(req.body.e_address);
-    var query_array = [];
-    for(let i = 0; i < req.body.e_address.length ; i++){
-        let update_address = "UPDATE address "+
-        "SET address_type = " + "'" + req.body.e_address[i].address_type + "'" + 
-        " , address_line = " + "'" + req.body.e_address[i].address_line + "'" + 
-        " , city = " + "'" + req.body.e_address[i].city + "'" +
-        " , state = " + "'" + req.body.e_address[i].state + "'" +
-        " , zip = " + "'" + req.body.e_address[i].zip + "'" +
-        " where address_id=" + req.body.e_address[i].address_id;
-        query_array.push(update_address);
-    }
-
-    for(let i = 0; i < req.body.e_phone.length ; i++){
-        var update_phone = "UPDATE phone "+
-        "SET phone_type = " + "'" + req.body.e_phone[i].phone_type + "'" + 
-        " , phone = " + "'" + req.body.e_phone[i].phone + "'" + 
-        " where phone_id=" + req.body.e_phone[i].phone_id;
-        query_array.push(update_phone);
-    }
-    
-    for(let i = 0; i < req.body.e_event.length ; i++){
-        var update_date = "UPDATE date "+
-        "SET date_type = " + "'" + req.body.e_event[i].date_type + "'" + 
-        " , date = " + "'" + req.body.e_event[i].date + "'" + 
-        " where date_id=" + req.body.e_event[i].date_id;
-        query_array.push(update_date);
-    }
-
-    var add_address_insert = "INSERT INTO address (contact_id, address_type, address_line, city, state, zip) VALUES ?";
-    var addressvalues = [];
-    for(let i = 0; i < req.body.address.length ; i++){
-        if(address_type[i] != ""){
-            addressvalues.push([contact_id, req.body.address.address_type[i], req.body.address.address_line[i], req.body.address.city[i], req.body.address.state[i], req.body.address.zip[i]]);
+    if (req.body.e_address !== undefined){
+        for(let i = 0; i < req.body.e_address.length ; i++){
+            let update_address = "UPDATE address "+
+            "SET address_type = " + "'" + req.body.e_address[i].address_type + "'" + 
+            " , address_line = " + "'" + req.body.e_address[i].address_line + "'" + 
+            " , city = " + "'" + req.body.e_address[i].city + "'" +
+            " , state = " + "'" + req.body.e_address[i].state + "'" +
+            " , zip = " + "'" + req.body.e_address[i].zip + "'" +
+            " where address_id=" + req.body.e_address[i].address_id;
+            query_array.push(update_address);
         }
     }
-    add_address = mysql.format(add_address_insert, [addressvalues]);
-    query_array.push(add_address);
-
-    var add_phone_insert = "INSERT INTO phone (contact_id, phone_type, area_code, number) VALUES ?";
-    var phonevalues = [];
-    for(let i = 0; i < req.body.phone.length ; i++){
-        if(phone_type[i] != ""){
-            phonevalues.push([contact_id, req.body.phone.phone_type[i], req.body.phone.area_code[i], req.body.phone.number[i]]);
+    if (req.body.e_phone !== undefined){
+        for(let i = 0; i < req.body.e_phone.length ; i++){
+            var update_phone = "UPDATE phone "+
+            "SET phone_type = " + "'" + req.body.e_phone[i].phone_type + "'" + 
+            " , phone = " + "'" + req.body.e_phone[i].phone + "'" + 
+            " where phone_id=" + req.body.e_phone[i].phone_id;
+            query_array.push(update_phone);
         }
     }
-    add_phone = mysql.format(add_phone_insert, [phonevalues]);
-    query_array.push(add_phone);
 
-    var add_date_insert = "INSERT INTO date (contact_id, date_type, date) VALUES ?";
-    var datevalues = [];
-    for(let i = 0; i < req.body.date.length ; i++){
-        if(phone_type[i] != ""){
-            datevalues.push([contact_id, req.body.date.date_type[i], req.body.date.date[i]]);
+    if (req.body.e_event !== undefined){
+        for(let i = 0; i < req.body.e_event.length ; i++){
+            var update_date = "UPDATE date "+
+            "SET date_type = " + "'" + req.body.e_event[i].date_type + "'" + 
+            " , date = " + "'" + req.body.e_event[i].date + "'" + 
+            " where date_id=" + req.body.e_event[i].date_id;
+            query_array.push(update_date);
         }
     }
-    add_date = mysql.format(add_date_insert, [datevalues]);
-    query_array.push(add_date);
 
-    console.log(query_array);
+    if (req.body.address !== undefined){
+        var add_address_insert = "INSERT INTO address (contact_id, address_type, address_line, city, state, zip) VALUES ?";
+        var addressvalues = [];
+        for(let i = 0; i < req.body.address.length ; i++){
+            //if(req.body.address[i].address_type != ""){
+                addressvalues.push([contact_id, req.body.address[i].address_type, req.body.address[i].address_line, req.body.address[i].city, req.body.address[i].state, req.body.address[i].zip]);
+            //}
+        }
+        add_address = mysql.format(add_address_insert, [addressvalues]);
+        query_array.push(add_address);
+    }
+
+    if (req.body.phone !== undefined){
+        var add_phone_insert = "INSERT INTO phone (contact_id, phone_type, area_code, number) VALUES ?";
+        var phonevalues = [];
+        for(let i = 0; i < req.body.phone.length ; i++){
+            //if(req.body.phone[i].phone_type != ""){
+                phonevalues.push([contact_id, req.body.phone[i].phone_type, req.body.phone[i].phone.substring(0, 3), req.body.phone[i].phone.substring(3,10)]);
+            //}
+        }
+        add_phone = mysql.format(add_phone_insert, [phonevalues]);
+        query_array.push(add_phone);
+    }
+
+    if (req.body.event !== undefined){
+        var add_date_insert = "INSERT INTO date (contact_id, date_type, date) VALUES ?";
+        var datevalues = [];
+        for(let i = 0; i < req.body.event.length ; i++){
+            //if(req.body.event[i].date_type != ""){
+                datevalues.push([contact_id, req.body.event[i].date_type, req.body.event[i].date]);
+            //}
+        }
+        add_date = mysql.format(add_date_insert, [datevalues]);
+        query_array.push(add_date);
+    }
+    for(val of query_array){
+        console.log(val);
+    }
+    //console.log(query_array);
     res.redirect("/");
 // { fname: 'Vivek',
 // mname: 'Nagalapura',
