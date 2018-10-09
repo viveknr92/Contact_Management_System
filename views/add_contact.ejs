@@ -1,4 +1,5 @@
 <% include partials/header %>
+<% include partials/fieldsets %>
 <div class="container">
     <div class="">
         <h5>New Contact</h5>
@@ -20,35 +21,6 @@
                 <button type="button" class="btn btn-success" id="addAddress">+ Add Address</button>
             </div>
         </div>
-        <div id="address" class="form-group" style="display:none">
-            <div class="form-row">
-                <div class="form-group col-md-3">
-                    <input list="addressType" name="address_type[]" class="form-control">
-                    <datalist id="addressType">
-                        <option value="home">
-                        <option value="work">
-                    </datalist>
-                </div>
-                <div class="form-group col-md-8">
-                    <input type="text" class="form-control" id="inputAddress" name="address_line[]" placeholder="Address"
-                        value="">
-                </div>
-                <div class="form-group col-md-1">
-                    <button type="button" class="btn btn-danger" id="deleteAddress"> X </button>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-5">
-                    <input type="text" class="form-control" placeholder="City" id="inputCity" name="city[]">
-                </div>
-                <div class="form-group col-md-4">
-                    <input type="text" class="form-control" placeholder="State" id="inputState" name="state[]">
-                </div>
-                <div class="form-group col-md-2">
-                    <input type="text" class="form-control" placeholder="Zip" id="inputZip" name="zip[]" pattern="[0-9]{5}">
-                </div>
-            </div>
-        </div><!-- Address -->
         <div id="cloneAddresshere">
             <!-- Address -->
         </div>
@@ -57,23 +29,6 @@
                 <button type="button" class="btn btn-success" id="addPhone">+ Add Phone</button>
             </div>
         </div>
-        <div id="phone" class="form-group" style="display:none">
-            <div class="form-row">
-                <div class="form-group col-md-3">
-                    <input list="PhoneType" name="phone_type[]" class="form-control">
-                    <datalist id="PhoneType">
-                        <option value="home">
-                        <option value="work">
-                    </datalist>
-                </div>
-                <div class="form-group col-md-6">
-                    <input type="tel" class="form-control" id="inputPhone" name="phone[]" placeholder="Phone">
-                </div>
-                <div class="form-group col-md-1">
-                    <button type="button" class="btn btn-danger" id="deletePhone"> X </button>
-                </div>
-            </div>
-        </div> <!-- Phone -->
         <div id="clonePhonehere">
             <!-- Phone -->
         </div>
@@ -82,23 +37,6 @@
                 <button type="button" class="btn btn-success" id="addEvent">+ Add Event</button>
             </div>
         </div>
-        <div id="event" class="form-group" style="display:none">
-            <div class="form-row">
-                <div class="form-group col-md-3">
-                    <input list="EventType" name="date_type[]" class="form-control">
-                    <datalist id="EventType">
-                        <option value="home">
-                        <option value="work">
-                    </datalist>
-                </div>
-                <div class="form-group col-md-6">
-                    <input type="date" class="form-control" id="inputEvent" placeholder="MM-DD-YYYY" name="date[]">
-                </div>
-                <div class="form-group col-md-1">
-                    <button type="button" class="btn btn-danger" id="deleteEvent"> X </button>
-                </div>
-            </div>
-        </div> <!-- Event -->
         <div id="cloneEventhere">
             <!-- Event -->
         </div>
