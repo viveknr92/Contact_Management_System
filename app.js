@@ -108,7 +108,29 @@ app.post("/edit/:id", function(req, res){
     " where contact_id=" + contact_id;
     query_array.push(update_contact);
 
-    //var promiseArray = constructQuery(req.body.e_address);
+    console.log(req.body);
+
+    if (req.body.address_delete !== undefined){
+        for(let i = 0; i < req.body.address_delete.length ; i++){
+            var delete_from_address = "DELETE FROM address WHERE address_id='" + req.body.address_delete[i] + "'";
+            query_array.push(delete_from_address);
+        }
+    }
+
+    if (req.body.phone_delete !== undefined){
+        for(let i = 0; i < req.body.phone_delete.length ; i++){
+            var delete_from_phone = "DELETE FROM phone WHERE phone_id='" + req.body.phone_delete[i] + "'";
+            query_array.push(delete_from_phone);
+        }
+    }
+
+    if (req.body.date_delete !== undefined){
+        for(let i = 0; i < req.body.date_delete.length ; i++){
+            var delete_from_date = "DELETE FROM date WHERE date_id='" + req.body.date_delete[i] + "'";
+            query_array.push(delete_from_date);
+        }
+    }
+
     if (req.body.e_address !== undefined){
         for(let i = 0; i < req.body.e_address.length ; i++){
             let update_address = "UPDATE address "+
@@ -121,6 +143,7 @@ app.post("/edit/:id", function(req, res){
             query_array.push(update_address);
         }
     }
+
     if (req.body.e_phone !== undefined){
         for(let i = 0; i < req.body.e_phone.length ; i++){
             var update_phone = "UPDATE phone "+
