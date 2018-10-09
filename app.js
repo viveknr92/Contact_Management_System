@@ -210,7 +210,7 @@ app.post("/edit/:id", function(req, res){
     
     Promise.all(promise_array)
     .then(data => {
-        console.log("Query Results : -----------------------------");
+        console.log("Query Results : ----------------------------- Modify");
         console.log(data);
         res.redirect("/");
         return data;
@@ -272,7 +272,7 @@ app.post('/add', function(req, res){
         console.log(promise_array);
         Promise.all(promise_array)
         .then(data => {
-            console.log("Query Results : -----------------------------");
+            console.log("Query Results : ----------------------------- Insert");
             console.log(data);
             res.redirect("/");
             return data;

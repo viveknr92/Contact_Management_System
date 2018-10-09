@@ -29,7 +29,6 @@ function deleteForm( formID, DeletebuttonID, formToDelete, fieldset){
     
     //$(DeletebuttonID).off();
     $(document).on('click', DeletebuttonID, function () {
-        console.log("Clicked : " + $(DeletebuttonID).val());
         console.log($(this).val());
         $(formToDelete).after("<input type='hidden' name='" + fieldset + "_delete[]' value='" + $(this).val() + "'/>");
         $(this).parents(formID).remove();
