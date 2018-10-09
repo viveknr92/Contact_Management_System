@@ -78,7 +78,7 @@ app.get("/addpage", function(req, res){
                         });
                         console.log(date);
                         res.render("edit_contact", {contact_id : q,
-                             contact_name : contact_name, address:address, phone:phone, date:date});
+                             contact_name : contact_name[0], address:address, phone:phone, date:date});
                     });
                 });
             });
