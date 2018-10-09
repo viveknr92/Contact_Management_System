@@ -8,8 +8,10 @@ $(document).ready(function (){
     addForm('#addEvent', '#event', '#cloneEventhere', '#deleteEvent');
     deleteForm('#event_existing', '#deleteEvent_existing', '#date_to_delete', "date");
 
-    $('#editButton').click(function(){
-        console.log("Edit clicked" + $(this).val());
+
+    $("#formID").submit(function(e) {
+        console.log($(this).closest('form').serialize());
+        e.preventDefault();
     });
 });
 
