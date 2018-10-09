@@ -13,3 +13,18 @@
 </head>
 
 <body>
+<% if(search_query === undefined){var search_query = "";} %>
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">Contact Manager</a>
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+                <a href="/addpage" class="btn btn-success">Create Contact</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0" action="/" method="GET">
+            <input type="text" class="form-control mr-sm-2" type="search" placeholder="Search" value="<%= search_query %>" name="search" id="searchValue" required>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="searchbutton">Search</button>
+        </form>
+    </nav>
+</div>
