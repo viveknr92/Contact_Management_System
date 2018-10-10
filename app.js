@@ -97,7 +97,6 @@ function executeQuery (query) {
 
 app.post("/edit/:id", function(req, res){
     console.log(req.body);
-    res.redirect("/");
     var contact_id = req.params.id;
     console.log("edit route : " + contact_id);
 
@@ -221,7 +220,6 @@ app.post("/edit/:id", function(req, res){
 
 app.post('/add', function(req, res){
     console.log(req.body);
-    res.redirect("/");
     var query_array = [];
     var promise_array = [];
     var sql = "INSERT INTO contact (fname, mname, lname) VALUES ?";
