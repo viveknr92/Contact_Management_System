@@ -30,45 +30,49 @@
                 <button type="button" class="btn btn-success" id="addAddress">+ Add Address</button>
             </div>
         </div>
-        <%for(var addr of address){%>
-        <div id="address_existing" class="form-group">
-            <div class="form-row">
-                <div class="form-group col-md-3">
-                    <input list="addressType" name="e_address[][address_type]" value="<%= addr.address_type %>" class="form-control">
-                    <datalist id="addressType">
-                        <option value="home">
-                        <option value="work">
-                    </datalist>
+        
+        <div id="existingAddresshere">
+            <%for(var addr of address){%>
+            <div id="address_existing" class="form-group">
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <input list="addressType" name="e_address[][address_type]" value="<%= addr.address_type %>" class="form-control">
+                        <datalist id="addressType">
+                            <option value="home">
+                            <option value="work">
+                        </datalist>
+                    </div>
+                    <div class="form-group col-md-8">
+                        <input type="text" class="form-control" id="inputAddress" value="<%= addr.address_line %>" name="e_address[][address_line]"
+                            placeholder="Address" value="">
+                    </div>
+                    <div class="form-group col-md-1">
+                        <button type="button" class="btn btn-danger" id="deleteAddress_existing" value="<%= addr.address_id %>"> X </button>
+                    </div>
                 </div>
-                <div class="form-group col-md-8">
-                    <input type="text" class="form-control" id="inputAddress" value="<%= addr.address_line %>" name="e_address[][address_line]"
-                        placeholder="Address" value="">
+                <div class="form-row">
+                    <div class="form-group col-md-5">
+                        <input type="text" class="form-control" placeholder="City" id="inputCity" value="<%= addr.city %>"
+                            name="e_address[][city]">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <input type="text" class="form-control" placeholder="State" id="inputState" value="<%= addr.state %>"
+                            name="e_address[][state]">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <input type="text" class="form-control" placeholder="Zip" id="inputZip" value="<%= addr.zip %>"
+                            name="e_address[][zip]">
+                    </div>
+                    <div class="form-group col-md-1">
+                        <input type="text" class="form-control" value="<%= addr.address_id %>" name="e_address[][address_id]"
+                            placeholder="AddressID" style="display:none">
+                    </div>
                 </div>
-                <div class="form-group col-md-1">
-                    <button type="button" class="btn btn-danger" id="deleteAddress_existing" value="<%= addr.address_id %>"> X </button>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-5">
-                    <input type="text" class="form-control" placeholder="City" id="inputCity" value="<%= addr.city %>"
-                        name="e_address[][city]">
-                </div>
-                <div class="form-group col-md-4">
-                    <input type="text" class="form-control" placeholder="State" id="inputState" value="<%= addr.state %>"
-                        name="e_address[][state]">
-                </div>
-                <div class="form-group col-md-2">
-                    <input type="text" class="form-control" placeholder="Zip" id="inputZip" value="<%= addr.zip %>"
-                        name="e_address[][zip]">
-                </div>
-                <div class="form-group col-md-1">
-                    <input type="text" class="form-control" value="<%= addr.address_id %>" name="e_address[][address_id]"
-                        placeholder="AddressID" style="display:none">
-                </div>
-            </div>
-        </div><!-- Address -->
-        <%} %>
+            </div><!-- Address -->
+            <%} %>
+        </div>
         <div id="address_to_delete"></div>
+        
         <div id="cloneAddresshere">
             <!-- Address -->
         </div>
@@ -79,33 +83,37 @@
                 <button type="button" class="btn btn-success" id="addPhone">+ Add Phone</button>
             </div>
         </div>
-
-        <%for(var ph of phone){%>
-        <div id="phone_existing" class="form-group">
-            <div class="form-row">
-                <div class="form-group col-md-3">
-                    <input list="PhoneType" value="<%= ph.phone_type %>" name="e_phone[][phone_type]" class="form-control">
-                    <datalist id="PhoneType">
-                        <option value="cell">
-                        <option value="home">
-                        <option value="work">
-                    </datalist>
+        
+        <div id="existingPhonehere">
+            <%for(var ph of phone){%>
+            <div id="phone_existing" class="form-group">
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <input list="PhoneType" value="<%= ph.phone_type %>" name="e_phone[][phone_type]" class="form-control">
+                        <datalist id="PhoneType">
+                            <option value="cell">
+                            <option value="home">
+                            <option value="work">
+                        </datalist>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <input type="tel" value="<%= ph.area_code + ph.number %>" class="form-control" id="inputPhone" name="e_phone[][phone]"
+                            placeholder="Phone">
+                    </div>
+                    <div class="form-group col-md-1">
+                        <button type="button" class="btn btn-danger" id="deletePhone_existing" value="<%= ph.phone_id %>"> X </button>
+                    </div>
+                    <div class="form-group col-md-1">
+                        <input type="text" class="form-control" value="<%= ph.phone_id %>" name="e_phone[][phone_id]"
+                            placeholder="PhoneID" style="display:none">
+                    </div>
                 </div>
-                <div class="form-group col-md-6">
-                    <input type="tel" value="<%= ph.area_code + ph.number %>" class="form-control" id="inputPhone" name="e_phone[][phone]"
-                        placeholder="Phone">
-                </div>
-                <div class="form-group col-md-1">
-                    <button type="button" class="btn btn-danger" id="deletePhone_existing" value="<%= ph.phone_id %>"> X </button>
-                </div>
-                <div class="form-group col-md-1">
-                    <input type="text" class="form-control" value="<%= ph.phone_id %>" name="e_phone[][phone_id]"
-                        placeholder="PhoneID" style="display:none">
-                </div>
-            </div>
-        </div> <!-- Phone -->
-        <%} %>
+            </div> <!-- Phone -->
+            <%} %>
+        </div>
+        
         <div id="phone_to_delete"></div>
+        
         <div id="clonePhonehere">
             <!-- Phone -->
         </div>
@@ -116,30 +124,34 @@
                 <button type="button" class="btn btn-success" id="addEvent">+ Add Event</button>
             </div>
         </div>
-
-        <%for(var dt of date){%>
-        <div id="event_existing" class="form-group">
-            <div class="form-row">
-                <div class="form-group col-md-3">
-                    <input list="EventType" value="<%= dt.date_type %>" name="e_event[][date_type]" class="form-control">
-                    <datalist id="EventType">
-                        <option value="birthday">
-                    </datalist>
+        
+        <div id="existingEventhere">
+            <%for(var dt of date){%>
+            <div id="event_existing" class="form-group">
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <input list="EventType" value="<%= dt.date_type %>" name="e_event[][date_type]" class="form-control">
+                        <datalist id="EventType">
+                            <option value="birthday">
+                        </datalist>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <input type="date" value="<%=dt.date%>" class="form-control" id="inputEvent" name="e_event[][date]">
+                    </div>
+                    <div class="form-group col-md-1">
+                        <button type="button" class="btn btn-danger" id="deleteEvent_existing" value="<%= dt.date_id %>"> X </button>
+                    </div>
+                    <div class="form-group col-md-1">
+                        <input type="text" class="form-control" value="<%= dt.date_id %>" name="e_event[][date_id]"
+                            placeholder="DateID" style="display:none">
+                    </div>
                 </div>
-                <div class="form-group col-md-6">
-                    <input type="date" value="<%=dt.date%>" class="form-control" id="inputEvent" name="e_event[][date]">
-                </div>
-                <div class="form-group col-md-1">
-                    <button type="button" class="btn btn-danger" id="deleteEvent_existing" value="<%= dt.date_id %>"> X </button>
-                </div>
-                <div class="form-group col-md-1">
-                    <input type="text" class="form-control" value="<%= dt.date_id %>" name="e_event[][date_id]"
-                        placeholder="DateID" style="display:none">
-                </div>
-            </div>
-        </div> <!-- Event -->
-        <%} %>
+            </div> <!-- Event -->
+            <%} %>
+        </div>
+        
         <div id="date_to_delete"></div>
+        
         <div id="cloneEventhere">
             <!-- Event -->
         </div>
