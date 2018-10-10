@@ -31,14 +31,14 @@
 <div id="phone" class="form-group" style="display:none">
     <div class="form-row">
         <div class="form-group col-md-3">
-            <input list="PhoneType" name="phone[][phone_type]" class="form-control">
+            <input list="PhoneType" name="phone[0][phone_type]" class="form-control">
             <datalist id="PhoneType">
                 <option value="home">
                 <option value="work">
             </datalist>
         </div>
         <div class="form-group col-md-6">
-            <input type="tel" class="form-control" id="inputPhone" name="phone[][phone]" placeholder="Phone">
+            <input type="tel" class="form-control" id="inputPhone" name="phone[0][phone]" placeholder="Phone">
         </div>
         <div class="form-group col-md-1">
             <button type="button" class="btn btn-danger" id="deletePhone"> X </button>
