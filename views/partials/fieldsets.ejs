@@ -2,14 +2,14 @@
 <div id='address' class='form-group' style='display:none'>
     <div class='form-row'>
         <div class='form-group col-md-3'>
-            <input list='addressType' name='address[0][address_type]' class='form-control'>
+            <input list='addressType' name='address[][address_type]' class='form-control'>
             <datalist id='addressType'>
                 <option value='home'>
                 <option value='work'>
             </datalist>
         </div>
         <div class='form-group col-md-8'>
-            <input type='text' class='form-control' id='inputAddress' name='address[0][address_line]' placeholder='Address'
+            <input type='text' class='form-control' id='inputAddress' name='address[][address_line]' placeholder='Address'
                 value=''>
         </div>
         <div class='form-group col-md-1'>
@@ -18,16 +18,16 @@
     </div>
     <div class='form-row'>
         <div class='form-group col-md-5'>
-            <input type='text' class='form-control' placeholder='City' id='inputCity' name='address[0][city]'>
+            <input type='text' class='form-control' placeholder='City' id='inputCity' name='address[][city]'>
         </div>
         <div class='form-group col-md-4'>
-            <input type='text' class='form-control' placeholder='State' id='inputState' name='address[0][state]'>
+            <input type='text' class='form-control' placeholder='State' id='inputState' name='address[][state]'>
         </div>
         <div class='form-group col-md-2'>
-            <input type='text' class='form-control' placeholder='Zip' id='inputZip' name='address[0][zip]'>
+            <input type='text' class='form-control' placeholder='Zip' id='inputZip' name='address[][zip]'>
         </div>
     </div>
-</div>";<!-- Address -->
+</div><!-- Address -->
 
 <!--<div id='phone' class='form-group' style='display:none'>
     <div class='form-row'>
