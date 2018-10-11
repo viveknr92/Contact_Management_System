@@ -37,6 +37,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-3">
                         <input list="addressType" placeholder='Type' name="e_address[][address_type]" value="<%= addr.address_type %>" class="form-control">
+                        <div class="invalid-feedback">address type - alphanumeric (max len = 10)</div>
                         <datalist id="addressType">
                             <option value="home">
                             <option value="work">
@@ -45,6 +46,7 @@
                     <div class="form-group col-md-8">
                         <input type="text" class="form-control" id="inputAddress" value="<%= addr.address_line %>" name="e_address[][address_line]"
                             placeholder="Address" value="">
+                        <div class="invalid-feedback">address line - max len = 100</div>
                     </div>
                     <div class="form-group col-md-1">
                         <button type="button" class="btn btn-danger" id="deleteAddress_existing" value="<%= addr.address_id %>"> X </button>
@@ -54,14 +56,17 @@
                     <div class="form-group col-md-5">
                         <input type="text" class="form-control" placeholder="City" id="inputCity" value="<%= addr.city %>"
                             name="e_address[][city]">
+                            <div class="invalid-feedback">city - alphanumeric (max len = 20)</div>
                     </div>
                     <div class="form-group col-md-4">
                         <input type="text" class="form-control" placeholder="State" id="inputState" value="<%= addr.state %>"
                             name="e_address[][state]">
+                            <div class="invalid-feedback">state - alphanumeric (max len = 20)</div>
                     </div>
                     <div class="form-group col-md-2">
                         <input type="text" class="form-control" placeholder="Zip" id="inputZip" value="<%= addr.zip %>"
                             name="e_address[][zip]">
+                            <div class="invalid-feedback">zip code - 5 or 6 digits</div>
                     </div>
                     <div class="form-group col-md-1">
                         <input type="text" class="form-control" value="<%= addr.address_id %>" name="e_address[][address_id]"
@@ -90,6 +95,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-3">
                         <input list="PhoneType" value="<%= ph.phone_type %>" name="e_phone[][phone_type]" class="form-control" placeholder='Type'>
+                        <div class="invalid-feedback">phone type - alphanumeric (max len = 10)</div>
                         <datalist id="PhoneType">
                             <option value="cell">
                             <option value="home">
@@ -99,6 +105,7 @@
                     <div class="form-group col-md-6">
                         <input type="tel" value="<%= ph.area_code + ph.number %>" class="form-control" id="inputPhone" name="e_phone[][phone]"
                             placeholder="Phone">
+                            <div class="invalid-feedback">phone - 10 digits</div>
                     </div>
                     <div class="form-group col-md-1">
                         <button type="button" class="btn btn-danger" id="deletePhone_existing" value="<%= ph.phone_id %>"> X </button>
@@ -131,12 +138,14 @@
                 <div class="form-row">
                     <div class="form-group col-md-3">
                         <input list="EventType" value="<%= dt.date_type %>" placeholder='Type' name="e_event[][date_type]" class="form-control">
+                        <div class="invalid-feedback">event type - alphanumeric (max len = 10)</div>
                         <datalist id="EventType">
                             <option value="birthday">
                         </datalist>
                     </div>
                     <div class="form-group col-md-6">
                         <input type="date" value="<%=dt.date%>" class="form-control" id="inputEvent" name="e_event[][date]">
+                        <div class="invalid-feedback">Please choose a date for this event</div>
                     </div>
                     <div class="form-group col-md-1">
                         <button type="button" class="btn btn-danger" id="deleteEvent_existing" value="<%= dt.date_id %>"> X </button>
