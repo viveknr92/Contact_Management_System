@@ -113,23 +113,7 @@ $(document).ready(function (){
         var address_line_regex = new RegExp(/^.{1,100}$/); // address line format
         var zip_regex = new RegExp(/^\d{5,6}$/); // zip format
         var phone_regex = new RegExp(/^\d{10}$/); // phone format
-
-        function validate_date(inp){
-            console.log($(inp).val());
-            if($(inp).val() != ""){
-                $(inp).removeClass("is-invalid");
-                $(inp).addClass("is-valid");
-                console.log($(inp).val() + "valid");
-                return true;
-            }
-            else{
-                $(inp).removeClass("is-valid");
-                $(inp).addClass("is-invalid");
-                console.log($(inp).val() + "invalid");
-                event.preventDefault();
-                return false;
-            }
-        }
+        var date_regex = new RegExp(/^.+$/); // date format
      
         function validate(inp, regex){
             console.log($(inp).val());
@@ -197,7 +181,7 @@ $(document).ready(function (){
             console.log(input[1].name + " = " + input[1].value);
             console.log(" ");
             flag = validate(input[0], type_regex);
-            flag = validate_date(input[1]);
+            flag = validate(input[1],date_regex);
 
         });
 
@@ -259,7 +243,7 @@ $(document).ready(function (){
             console.log(input[2].name + " = " + input[2].value);
 
             flag = validate(input[0], type_regex);
-            flag = validate_date(input[1]);
+            flag = validate(input[1],date_regex);
             console.log(" ");
         });
 
