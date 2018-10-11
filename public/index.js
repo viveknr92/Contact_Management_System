@@ -81,6 +81,10 @@ function deleteForm( formID, DeletebuttonID, formToDelete, fieldset){
     });
 }
 $(document).ready(function (){
+    $('#confirm-delete').on('show.bs.modal', function(e) {
+        $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
+    });
+
     addForm('#addAddress', address , '#cloneAddresshere', '#deleteAddress');
     deleteForm('#address_existing', '#deleteAddress_existing', '#address_to_delete', "address");
     
