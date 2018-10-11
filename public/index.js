@@ -94,37 +94,38 @@ $(document).ready(function (){
     $("#formID").submit(function(e) {
         //e.preventDefault();
         $('#clonePhonehere').children().each(function(e){
-            $(this).find('input')[0].name = "phone[" + e + "][phone_type]";
-            $(this).find('input')[1].name = "phone[" + e + "][phone]";
+            let input = $(this).find('input');
+            input[0].name = "phone[" + e + "][phone_type]";
+            input[1].name = "phone[" + e + "][phone]";
 
-            console.log($(this).find('input')[0].name + " = " + $(this).find('input')[0].value);
-            console.log($(this).find('input')[1].name + " = " + $(this).find('input')[1].value);
+            console.log(input[0].name + " = " + input[0].value);
+            console.log(input[1].name + " = " + input[1].value);
             console.log(" ");
         });
 
         $('#cloneAddresshere').children().each(function(e){
-            
-            $(this).find('input')[0].name = "address[" + e + "][address_type]";
-            $(this).find('input')[1].name = "address[" + e + "][address_line]";
-            $(this).find('input')[2].name = "address[" + e + "][city]";
-            $(this).find('input')[3].name = "address[" + e + "][state]";
-            $(this).find('input')[4].name = "address[" + e + "][zip]";
+            let input = $(this).find('input');
+            input[0].name = "address[" + e + "][address_type]";
+            input[1].name = "address[" + e + "][address_line]";
+            input[2].name = "address[" + e + "][city]";
+            input[3].name = "address[" + e + "][state]";
+            input[4].name = "address[" + e + "][zip]";
 
-            console.log($(this).find('input')[0].name + " = " + $(this).find('input')[0].value);
-            console.log($(this).find('input')[1].name + " = " + $(this).find('input')[1].value);
-            console.log($(this).find('input')[2].name + " = " + $(this).find('input')[2].value);
-            console.log($(this).find('input')[3].name + " = " + $(this).find('input')[3].value);
-            console.log($(this).find('input')[4].name + " = " + $(this).find('input')[4].value);
+            console.log(input[0].name + " = " + input[0].value);
+            console.log(input[1].name + " = " + input[1].value);
+            console.log(input[2].name + " = " + input[2].value);
+            console.log(input[3].name + " = " + input[3].value);
+            console.log(input[4].name + " = " + input[4].value);
             console.log(" ");
         });
 
         $('#cloneEventhere').children().each(function(e){
-    
-            $(this).find('input')[0].name = "event[" + e + "][date_type]";
-            $(this).find('input')[1].name = "event[" + e + "][date]";
+            let input = $(this).find('input');
+            input[0].name = "event[" + e + "][date_type]";
+            input[1].name = "event[" + e + "][date]";
 
-            console.log($(this).find('input')[0].name + " = " + $(this).find('input')[0].value);
-            console.log($(this).find('input')[1].name + " = " + $(this).find('input')[1].value);
+            console.log(input[0].name + " = " + input[0].value);
+            console.log(input[1].name + " = " + input[1].value);
             console.log(" ");
         });
 
@@ -134,44 +135,45 @@ $(document).ready(function (){
         //////////////////////////////////
 
         $('#existingPhonehere').children().each(function(e){
-            $(this).find('input')[0].name = "e_phone[" + e + "][phone_type]";
-            $(this).find('input')[1].name = "e_phone[" + e + "][phone]";
-            $(this).find('input')[2].name = "e_phone[" + e + "][phone_id]";
+            let input = $(this).find('input');
+            input[0].name = "e_phone[" + e + "][phone_type]";
+            input[1].name = "e_phone[" + e + "][phone]";
+            input[2].name = "e_phone[" + e + "][phone_id]";
 
-            console.log($(this).find('input')[0].name + " = " + $(this).find('input')[0].value);
-            console.log($(this).find('input')[1].name + " = " + $(this).find('input')[1].value);
-            console.log($(this).find('input')[2].name + " = " + $(this).find('input')[2].value);
+            console.log(input[0].name + " = " + input[0].value);
+            console.log(input[1].name + " = " + input[1].value);
+            console.log(input[2].name + " = " + input[2].value);
             console.log(" ");
         });
 
         $('#existingAddresshere').children().each(function(e){
-            
-            $(this).find('input')[0].name = "e_address[" + e + "][address_type]";
-            $(this).find('input')[1].name = "e_address[" + e + "][address_line]";
-            $(this).find('input')[2].name = "e_address[" + e + "][city]";
-            $(this).find('input')[3].name = "e_address[" + e + "][state]";
-            $(this).find('input')[4].name = "e_address[" + e + "][zip]";
-            $(this).find('input')[5].name = "e_address[" + e + "][address_id]";
+            let input = $(this).find('input');
+            input[0].name = "e_address[" + e + "][address_type]";
+            input[1].name = "e_address[" + e + "][address_line]";
+            input[2].name = "e_address[" + e + "][city]";
+            input[3].name = "e_address[" + e + "][state]";
+            input[4].name = "e_address[" + e + "][zip]";
+            input[5].name = "e_address[" + e + "][address_id]";
             
 
-            console.log($(this).find('input')[0].name + " = " + $(this).find('input')[0].value);
-            console.log($(this).find('input')[1].name + " = " + $(this).find('input')[1].value);
-            console.log($(this).find('input')[2].name + " = " + $(this).find('input')[2].value);
-            console.log($(this).find('input')[3].name + " = " + $(this).find('input')[3].value);
-            console.log($(this).find('input')[4].name + " = " + $(this).find('input')[4].value);
-            console.log($(this).find('input')[5].name + " = " + $(this).find('input')[5].value);
+            console.log(input[0].name + " = " + input[0].value);
+            console.log(input[1].name + " = " + input[1].value);
+            console.log(input[2].name + " = " + input[2].value);
+            console.log(input[3].name + " = " + input[3].value);
+            console.log(input[4].name + " = " + input[4].value);
+            console.log(input[5].name + " = " + input[5].value);
             console.log(" ");
         });
 
         $('#existingEventhere').children().each(function(e){
-    
-            $(this).find('input')[0].name = "e_event[" + e + "][date_type]";
-            $(this).find('input')[1].name = "e_event[" + e + "][date]";
-            $(this).find('input')[2].name = "e_event[" + e + "][date_id]";
+            let input = $(this).find('input');
+            input[0].name = "e_event[" + e + "][date_type]";
+            input[1].name = "e_event[" + e + "][date]";
+            input[2].name = "e_event[" + e + "][date_id]";
 
-            console.log($(this).find('input')[0].name + " = " + $(this).find('input')[0].value);
-            console.log($(this).find('input')[1].name + " = " + $(this).find('input')[1].value);
-            console.log($(this).find('input')[2].name + " = " + $(this).find('input')[2].value);
+            console.log(input[0].name + " = " + input[0].value);
+            console.log(input[1].name + " = " + input[1].value);
+            console.log(input[2].name + " = " + input[2].value);
             console.log(" ");
         });
 
