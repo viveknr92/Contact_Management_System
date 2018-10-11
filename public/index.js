@@ -105,7 +105,7 @@ $(document).ready(function (){
 
     
 
-    $("#formID").submit(function(event) {
+    $("#formID").submit(function(e) {
         //e.preventDefault();
         // var flag = false;
 
@@ -136,8 +136,8 @@ $(document).ready(function (){
 
             console.log(input[0].name + " = " + input[0].value);
             console.log(input[1].name + " = " + input[1].value);
-            flag = validate(input[0], type_regex);
-            flag = validate(input[1], phone_regex);
+            // flag = validate(input[0], type_regex);
+            // flag = validate(input[1], phone_regex);
             console.log(" ");
         });
 
