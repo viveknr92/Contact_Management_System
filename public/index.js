@@ -92,7 +92,7 @@ $(document).ready(function (){
 
 
     $("#formID").submit(function(e) {
-        e.preventDefault();
+        //e.preventDefault();
         $('#clonePhonehere').children().each(function(e){
             $(this).find('input')[0].name = "phone[" + e + "][phone_type]";
             $(this).find('input')[1].name = "phone[" + e + "][phone]";
@@ -136,9 +136,11 @@ $(document).ready(function (){
         $('#existingPhonehere').children().each(function(e){
             $(this).find('input')[0].name = "e_phone[" + e + "][phone_type]";
             $(this).find('input')[1].name = "e_phone[" + e + "][phone]";
+            $(this).find('input')[2].name = "e_phone[" + e + "][phone_id]";
 
             console.log($(this).find('input')[0].name + " = " + $(this).find('input')[0].value);
             console.log($(this).find('input')[1].name + " = " + $(this).find('input')[1].value);
+            console.log($(this).find('input')[2].name + " = " + $(this).find('input')[2].value);
             console.log(" ");
         });
 
@@ -149,12 +151,15 @@ $(document).ready(function (){
             $(this).find('input')[2].name = "e_address[" + e + "][city]";
             $(this).find('input')[3].name = "e_address[" + e + "][state]";
             $(this).find('input')[4].name = "e_address[" + e + "][zip]";
+            $(this).find('input')[5].name = "e_address[" + e + "][address_id]";
+            
 
             console.log($(this).find('input')[0].name + " = " + $(this).find('input')[0].value);
             console.log($(this).find('input')[1].name + " = " + $(this).find('input')[1].value);
             console.log($(this).find('input')[2].name + " = " + $(this).find('input')[2].value);
             console.log($(this).find('input')[3].name + " = " + $(this).find('input')[3].value);
             console.log($(this).find('input')[4].name + " = " + $(this).find('input')[4].value);
+            console.log($(this).find('input')[5].name + " = " + $(this).find('input')[5].value);
             console.log(" ");
         });
 
@@ -162,15 +167,18 @@ $(document).ready(function (){
     
             $(this).find('input')[0].name = "e_event[" + e + "][date_type]";
             $(this).find('input')[1].name = "e_event[" + e + "][date]";
+            $(this).find('input')[2].name = "e_event[" + e + "][date_id]";
 
             console.log($(this).find('input')[0].name + " = " + $(this).find('input')[0].value);
             console.log($(this).find('input')[1].name + " = " + $(this).find('input')[1].value);
+            console.log($(this).find('input')[2].name + " = " + $(this).find('input')[2].value);
             console.log(" ");
         });
 
         console.log($(this).closest('form').serializeArray());
         
-        return false;
+        //return false;
+        return true;
     });
     
 });
