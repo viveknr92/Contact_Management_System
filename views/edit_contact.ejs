@@ -36,7 +36,7 @@
             <div id="address_existing" class="form-group">
                 <div class="form-row">
                     <div class="form-group col-md-3">
-                        <input list="addressType" name="e_address[][address_type]" value="<%= addr.address_type %>" class="form-control">
+                        <input list="addressType" placeholder='Type' name="e_address[][address_type]" value="<%= addr.address_type %>" class="form-control">
                         <datalist id="addressType">
                             <option value="home">
                             <option value="work">
@@ -89,7 +89,7 @@
             <div id="phone_existing" class="form-group">
                 <div class="form-row">
                     <div class="form-group col-md-3">
-                        <input list="PhoneType" value="<%= ph.phone_type %>" name="e_phone[][phone_type]" class="form-control">
+                        <input list="PhoneType" value="<%= ph.phone_type %>" name="e_phone[][phone_type]" class="form-control" placeholder='Type'>
                         <datalist id="PhoneType">
                             <option value="cell">
                             <option value="home">
@@ -130,7 +130,7 @@
             <div id="event_existing" class="form-group">
                 <div class="form-row">
                     <div class="form-group col-md-3">
-                        <input list="EventType" value="<%= dt.date_type %>" name="e_event[][date_type]" class="form-control">
+                        <input list="EventType" value="<%= dt.date_type %>" placeholder='Type' name="e_event[][date_type]" class="form-control">
                         <datalist id="EventType">
                             <option value="birthday">
                         </datalist>
