@@ -16,7 +16,9 @@
     </nav>
 </div>
 <div class="container">
-    <h6 style="text-align:right"><%= comment %></h6>
+    <div class="alert alert-info" role="alert">
+        <h5 style="text-align:center"><%= comment %></h5>
+    </div>
     <div class="row">
     <% if (search_result != null && search_result.length > 0) {%>
         <table class="table table-bordered table-striped">
