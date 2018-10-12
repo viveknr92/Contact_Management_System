@@ -222,7 +222,9 @@ app.post("/edit/:id", function(req, res){
     .then(data => {
         console.log("Query Results : ----------------------------- Modify");
         console.log(data);
-        res.redirect("/");
+        res.render("index", {search_result : null,
+            comment : "Contact Modified",
+            search_query  : ""});
         return data;
     });
 });
@@ -284,7 +286,9 @@ app.post('/add', function(req, res){
         .then(data => {
             console.log("Query Results : ----------------------------- Insert");
             console.log(data);
-            res.redirect("/");
+            res.render("index", {search_result : null,
+                comment : "New Contact Added with contact ID = " + result.insertId,
+                search_query  : ""});
             return data;
         });
     });
@@ -313,7 +317,9 @@ app.get("/delete/:id", function(req, res){
                     if (err) console.log(err);
                     console.log("Number of records deleted: " + result.affectedRows);
                     console.log(result);
-                    res.redirect('/');
+                    res.render("index", {search_result : null,
+                        comment : "Contact Deleted",
+                        search_query  : ""});
                 });
             });
         });
