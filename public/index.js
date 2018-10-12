@@ -57,8 +57,7 @@ var event = `<div id='event' class='form-group' style='display:none'>
         <input list='EventType' name='event[][date_type]' class='form-control' placeholder='Type'>
         <div class="invalid-feedback">event type - alphanumeric (max len = 10)</div>
         <datalist id='EventType'>
-            <option value='home'>
-            <option value='work'>
+            <option value='birthday'>
         </datalist>
     </div>
     <div class='form-group col-md-6'>
