@@ -26,7 +26,7 @@ app.get('/', function(req, res){
             comment : "Search Contacts using the search box",
             search_query  : ""});
     }
-    else if (req.query.search.length < 3){
+    else if (req.query.search.length < 3 || !req.query.search.replace(/\s/g, '').length){
         res.render("index", {search_result : null,
             comment : "Enter a search query greater than 2",
             search_query  : req.query.search});
