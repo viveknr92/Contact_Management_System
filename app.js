@@ -39,7 +39,7 @@ app.get('/', function(req, res){
         left join address on contact.contact_id = address.contact_id
         left join phone on contact.contact_id = phone.contact_id
         left join date on contact.contact_id = date.contact_id
-            where address_line LIKE ${q} OR city LIKE ${q} OR state LIKE ${q} OR zip LIKE ${q}
+            where contact.contact_id LIKE ${q} OR address_line LIKE ${q} OR city LIKE ${q} OR state LIKE ${q} OR zip LIKE ${q}
                 OR fname LIKE ${q} or mname LIKE ${q} OR lname LIKE ${q}
                 OR area_code LIKE ${q} OR number LIKE ${q} OR date LIKE ${q}`;
         
@@ -223,7 +223,7 @@ app.post("/edit/:id", function(req, res){
         console.log("Query Results : ----------------------------- Modify");
         console.log(data);
         res.render("index", {search_result : null,
-            comment : "Contact Modified",
+            comment : "Modified Contact with contact ID : " + contact_id,
             search_query  : ""});
         return data;
     });
@@ -318,7 +318,7 @@ app.get("/delete/:id", function(req, res){
                     console.log("Number of records deleted: " + result.affectedRows);
                     console.log(result);
                     res.render("index", {search_result : null,
-                        comment : "Contact Deleted",
+                        comment : "Deleted Contact with contactID : " + id,
                         search_query  : ""});
                 });
             });
