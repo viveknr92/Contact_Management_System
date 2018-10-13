@@ -32,19 +32,25 @@ app.get('/', function(req, res){
             search_query  : req.query.search});
     }
     else{
+        
         console.log("search : " + req.query.search);
-        let q = "'%" + req.query.search + "%'";
+        var search = "SELECT DISTINCT contact.* from Contact\
+        left join address on contact.contact_id = address.contact_id\
+        left join phone on contact.contact_id = phone.contact_id\
+        left join date on contact.contact_id = date.contact_id where ";
+        var string_array = req.query.search.split(" ");
+        console.log("string_array : " + string_array);
+        for (var str of string_array){
+            console.log("string : " + str);
+            let q = "'%" + str + "%'";
+            search = search + " (contact.contact_id LIKE "+q+" OR address_line LIKE "+q+" OR city LIKE "+q+" OR state LIKE "+q+" OR zip LIKE "+q+"\
+                    OR fname LIKE "+q+" or mname LIKE "+q+" OR lname LIKE "+q+"\
+                    OR area_code LIKE "+q+" OR number LIKE "+q+" OR date LIKE "+q+ "OR CONCAT(area_code,'', number) LIKE "+q+") AND ";
+        }
         
-        var search = `SELECT DISTINCT contact.* from Contact
-        left join address on contact.contact_id = address.contact_id
-        left join phone on contact.contact_id = phone.contact_id
-        left join date on contact.contact_id = date.contact_id
-            where contact.contact_id LIKE ${q} OR address_line LIKE ${q} OR city LIKE ${q} OR state LIKE ${q} OR zip LIKE ${q}
-                OR fname LIKE ${q} or mname LIKE ${q} OR lname LIKE ${q}
-                OR area_code LIKE ${q} OR number LIKE ${q} OR date LIKE ${q}`;
-        
+        search = search.substring(0, search.length - 4);
+        console.log("search ------------------------------------------ : " + search);
         var search_count = "SELECT count(*) as count from (" + search + ") AS search";
-        
         db.query(search_count, function (err, count) {
             if (err) console.log(err);
             console.log(count[0].count);
