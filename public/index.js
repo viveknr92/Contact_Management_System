@@ -132,7 +132,9 @@ $(document).ready(function (){
         }
 
         flag = validate("#fname", name_regex);
-        flag = validate("#mname", name_regex);
+        if ($("#mname").val().length != 0){
+            flag = validate("#mname", name_regex);
+        }
         flag = validate("#lname", name_regex);
 
         $('#clonePhonehere').children().each(function(e){
