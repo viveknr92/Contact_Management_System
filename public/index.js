@@ -114,28 +114,31 @@ $(document).ready(function (){
         var phone_regex = new RegExp(/^\d{10}$/); // phone format
         var date_regex = new RegExp(/^.+$/); // date format
      
-        function validate(inp, regex){
+        function validate(inp, regex, isRequired){
             console.log($(inp).val());
-            if(regex.test($(inp).val())){
-                $(inp).removeClass("is-invalid");
-                $(inp).addClass("is-valid");
-                console.log($(inp).val() + "valid");
+            if ($(inp).val().length == 0 && isRequired == false){
                 return true;
             }
             else{
-                $(inp).removeClass("is-valid");
-                $(inp).addClass("is-invalid");
-                console.log($(inp).val() + "invalid");
-                event.preventDefault();
-                return false;
+                if(regex.test($(inp).val())){
+                    $(inp).removeClass("is-invalid");
+                    $(inp).addClass("is-valid");
+                    console.log($(inp).val() + "valid");
+                    return true;
+                }
+                else{
+                    $(inp).removeClass("is-valid");
+                    $(inp).addClass("is-invalid");
+                    console.log($(inp).val() + "invalid");
+                    event.preventDefault();
+                    return false;
+                }
             }
         }
 
-        flag = validate("#fname", name_regex);
-        if ($("#mname").val().length != 0){
-            flag = validate("#mname", name_regex);
-        }
-        flag = validate("#lname", name_regex);
+        flag = validate("#fname", name_regex, true);
+        flag = validate("#mname", name_regex, false);
+        flag = validate("#lname", name_regex, true);
 
         $('#clonePhonehere').children().each(function(e){
             let input = $(this).find('input');
@@ -146,8 +149,8 @@ $(document).ready(function (){
             console.log(input[1].name + " = " + input[1].value);
             input[1].value = input[1].value.replace(/-/g, '');
             console.log(input[1].value);
-            flag = validate(input[0], type_regex);
-            flag = validate(input[1], phone_regex);
+            flag = validate(input[0], type_regex, true);
+            flag = validate(input[1], phone_regex, true);
             console.log(" ");
         });
 
@@ -165,11 +168,11 @@ $(document).ready(function (){
             console.log(input[3].name + " = " + input[3].value);
             console.log(input[4].name + " = " + input[4].value);
             
-            flag = validate(input[0], type_regex);
-            flag = validate(input[1], address_line_regex);
-            flag = validate(input[2], name_regex);
-            flag = validate(input[3], name_regex);
-            flag = validate(input[4], zip_regex);
+            flag = validate(input[0], type_regex, true);
+            flag = validate(input[1], address_line_regex, false);
+            flag = validate(input[2], name_regex, false);
+            flag = validate(input[3], name_regex, false);
+            flag = validate(input[4], zip_regex, false);
 
             console.log(" ");
         });
@@ -182,8 +185,8 @@ $(document).ready(function (){
             console.log(input[0].name + " = " + input[0].value);
             console.log(input[1].name + " = " + input[1].value);
             console.log(" ");
-            flag = validate(input[0], type_regex);
-            flag = validate(input[1],date_regex);
+            flag = validate(input[0], type_regex, true);
+            flag = validate(input[1],date_regex, true);
 
         });
 
@@ -203,8 +206,8 @@ $(document).ready(function (){
             console.log(input[2].name + " = " + input[2].value);
             input[1].value = input[1].value.replace(/-/g, '');
             console.log(input[1].value);
-            flag = validate(input[0], type_regex);
-            flag = validate(input[1], phone_regex);
+            flag = validate(input[0], type_regex, true);
+            flag = validate(input[1], phone_regex, true);
 
             console.log(" ");
         });
@@ -226,11 +229,11 @@ $(document).ready(function (){
             console.log(input[4].name + " = " + input[4].value);
             console.log(input[5].name + " = " + input[5].value);
 
-            flag = validate(input[0], type_regex);
-            flag = validate(input[1], address_line_regex);
-            flag = validate(input[2], name_regex);
-            flag = validate(input[3], name_regex);
-            flag = validate(input[4], zip_regex);
+            flag = validate(input[0], type_regex, true);
+            flag = validate(input[1], address_line_regex, false);
+            flag = validate(input[2], name_regex, false);
+            flag = validate(input[3], name_regex, false);
+            flag = validate(input[4], zip_regex, false);
 
             console.log(" ");
         });
@@ -245,8 +248,8 @@ $(document).ready(function (){
             console.log(input[1].name + " = " + input[1].value);
             console.log(input[2].name + " = " + input[2].value);
 
-            flag = validate(input[0], type_regex);
-            flag = validate(input[1],date_regex);
+            flag = validate(input[0], type_regex, true);
+            flag = validate(input[1],date_regex, true);
             console.log(" ");
         });
 
