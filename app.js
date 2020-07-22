@@ -13,14 +13,17 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.set("view engine","ejs");
 
 var db = mysql.createConnection({
-    host: "localhost",
+    host: "192.168.1.122",
     user: "root",
     password: "root",
     database:"contact_manager"
 });
 
 db.connect(function(err) {
-    if (err) console.log(err);
+    if (err) {
+        console.log(err);
+        return;
+    }
     console.log("Connected to DB!");
 });
 global.db = db;
@@ -36,6 +39,6 @@ app.post("/edit/:id", update_contact);
 app.get("/delete/:id", delete_contact);
 
 
-app.listen(3000, "localhost", function(){
+app.listen(3000, "0.0.0.0", function(){
     console.log("Server started at 3000");
 });
