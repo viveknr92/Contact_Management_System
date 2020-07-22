@@ -8,14 +8,17 @@ app.set("view engine","ejs");
 var mysql = require('mysql');
 
 var db = mysql.createConnection({
-    host: "localhost",
+    host: "192.168.1.122",
     user: "root",
     password: "root",
     database:"contact_manager"
   });
 
 db.connect(function(err) {
-    if (err) console.log(err);
+    if (err) {
+        console.log(err);
+        return
+    }
     console.log("Connected to DB!");
 });
 global.db = db;
@@ -315,6 +318,6 @@ app.get("/delete/:id", function(req, res){
 });
 
 
-app.listen(3000, "localhost", function(){
+app.listen(3000, "0.0.0.0", function(){
     console.log("Server started at 3000");
 });
